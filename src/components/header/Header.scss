@@ -1,0 +1,58 @@
+.header{
+    background-color: #5D5FEF;
+    &__inner{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 65px;
+       
+    }
+    &__menu{
+        padding-left:100px;
+        &-link{
+            font-family: "SF Pro Display Regular";
+            color: #FFFFFF;
+        }
+        &-item{
+            margin-right: 37px;
+        }
+    }
+    &__menu-list{
+        display: flex;
+    }
+    &__toolbar-list{
+        display: flex;
+        
+    }
+    &__toolbar-item{
+        margin-left: 20px;
+    }
+    &__toolbar-link{
+       
+    }
+    &__toolbar-user{
+        background: transparent;
+        color: #FFFFFF;
+        border: none;
+        position: relative;
+        width: 80px;
+    }
+}
+.toolbar__dots{
+    &:after {
+        content: '\2807';
+        font-size: 16px;
+        color: #FFFFFF;
+        }
+}
+.arrow_down {
+    content: "";
+    position: absolute;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #FFFFFF;
+}
+
