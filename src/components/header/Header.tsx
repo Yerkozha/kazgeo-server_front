@@ -1,48 +1,50 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Header.scss'
 import Notify from '../../assets/image/icon/notify.svg'
 import settings from '../../assets/image/icon/settings.svg'
 import show from '../../assets/image/icon/show.svg'
-import {DropDown, Modal,ModalItem} from '../common/Modal/Modal'
+import { Modal } from '../common/Modal/Modal'
+import { Link } from 'react-router-dom'
 
 
-function Header() {
+function Header(props:any) {
+    let [open, setOpen] = useState(false)
+    
     return (
         <div className='header'>
             <div className="container">
                 <div className="header__inner">
                     <div className="header__menu">
                         <ul className="header__menu-list">
-                            <li className="header__menu-item"><a href="#" className="header__menu-link">Почта</a></li>
-                            <li className="header__menu-item"><a href="#" className="header__menu-link">Мои документы</a></li>
-                            <li className="header__menu-item"><a href="#" className="header__menu-link">Справочники</a></li>
-                            <li className="header__menu-item"><a href="#" className="header__menu-link">Документооборот</a></li>
-                            <li className="header__menu-item"><a href="#" className="header__menu-link">Библиотека документов</a></li>
+                            <li className="header__menu-item"><Link to="/" className="header__menu-link" onClick={()=>{
+                                props.toggleModal(!props.isModal)
+                            }}>Почта</Link></li>
+                            <li className="header__menu-item"><Link to="/my-document" className="header__menu-link">Мои документы</Link></li>
+                            <li className="header__menu-item"><Link to="/reference" className="header__menu-link">Справочники</Link></li>
+                            <li className="header__menu-item"><Link to="/document-flow" className="header__menu-link">Документооборот</Link></li>
+                            <li className="header__menu-item"><Link to="/library" className="header__menu-link">Библиотека документов</Link></li>
                         </ul>
                     </div>
                     <div className="header__toolbar">
                         <ul className="header__toolbar-list">
                             <li className="header__toolbar-item">
-                                <a href="" className="header__toolbar-link">
+                                <a href="#" className="header__toolbar-link">
                                     <img src={Notify} alt="" className="header_toolbar-image" />
                                 </a>
                             </li>
-                            <li className="header__toolbar-item">
-                                <a href="" className="header__toolbar-link">
-                                    <button className="header__toolbar-user">
-                                    <img src="show" alt="" className="header__user-image" />
-                                    User<div className="arrow_down"></div>
-                                    </button>
-                                </a>
-                              
-                                {/* <Modal>
-                                <ModalItem icon={<Show />}>
-                                    <DropDown />
-                                </ModalItem>
-                                </Modal> */}
+                            <li className="header__toolbar-list">
+                                <img src={""} alt="" className="header__user-image" />
                             </li>
                             <li className="header__toolbar-item">
-                                <a href="" className="header__toolbar-link"><img src={""} alt="" className="header_toolbar-image" /></a>
+                                <a href="#" className="header__toolbar-link" onClick={() => setOpen(!open)}>
+                                    <div className="header__toolbar-container">
+                                        <h5 className="header__toolbar-title">User</h5>
+                                        <Modal open={open} />
+                                    </div>
+                                </a>
+                            </li>
+                            <li className="header__toolbar-item">
+                                <a href="" className="header__toolbar-link"><img src={show} alt="" className="header_toolbar-image" /></a>
                             </li>
                             <li className="header__toolbar-item">
                                 <a href="" className="header__toolbar-link"><img src={settings} alt="" className="header_toolbar-image" /></a>
@@ -50,7 +52,7 @@ function Header() {
                             <li className="header__toolbar-item">
                                 <a href="" className="header__toolbar-link toolbar__dots">
                                     {/* <img src={dots} alt="" className="header_toolbar-image" /> */}
-                                    </a>
+                                </a>
                             </li>
                         </ul>
                     </div>

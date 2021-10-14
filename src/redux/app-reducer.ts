@@ -1,9 +1,10 @@
 
-import { getPost } from './post-reducer';
+import { getAuthUserData } from './auth-reducer';
 import {InferActionsTypes} from './redux';
 
 let initialState = {
-    initialized: false
+    initialized: false,
+    isModal: true
 };
 
 export type InitialStateType = typeof initialState
@@ -11,10 +12,15 @@ type ActionsType = InferActionsTypes<typeof actions>
 
 const appReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case 'SN/APP/INITIALIZED_SUCCESS':
+        case 'DL/APP/INITIALIZED_SUCCESS':
             return {
                 ...state,
                 initialized: true
+            }
+        case 'DL/APP/SET_MODAL':
+            return {
+                ...state,
+                isModal:action.isModal
             }
         default:
             return state;
@@ -22,11 +28,17 @@ const appReducer = (state = initialState, action: ActionsType): InitialStateType
 }
 
 export const actions = {
-    initializedSuccess: () => ({type: 'SN/APP/INITIALIZED_SUCCESS'} as const)
+    initializedSuccess : () => ({type: 'DL/APP/INITIALIZED_SUCCESS'} as const),
+    isModal            : (isModal:boolean) => ({type: 'DL/APP/SET_MODAL',isModal})
 }
 
-export const initializeApp = () => (dispatch: any) => {
-    let promise = dispatch(getPost());
+export const toggleModal = (isModal:boolean) => (dispatch: any) =>
+{
+    dispatch(actions.isModal(isModal))
+}
+
+export const initializeApp = () => async (dispatch: any) => {
+    let promise = dispatch(getAuthUserData());
 
     Promise.all([promise])
         .then(() => {

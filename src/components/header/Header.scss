@@ -19,23 +19,28 @@
     }
     &__menu-list{
         display: flex;
+        margin-bottom: 0;
     }
     &__toolbar-list{
         display: flex;
-        
+        margin-bottom: 0;
     }
     &__toolbar-item{
         margin-left: 20px;
     }
     &__toolbar-link{
-       
-    }
-    &__toolbar-user{
         background: transparent;
         color: #FFFFFF;
         border: none;
         position: relative;
         width: 80px;
+    }
+    &__toolbar-title{
+        color: #FFFFFF;
+        font-family: "SF Pro Display Regular";
+    }
+    &__toolbar-container{
+        display: flex;
     }
 }
 .toolbar__dots{

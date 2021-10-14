@@ -1,0 +1,212 @@
+.main__wrapper {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    width: 100vw;
+    height: 100vh;
+    
+}
+.navbar {
+    height: 100%;
+    &__menu{
+        display: flex;
+        flex-direction: column;
+        
+    }
+    &__menu-item{
+        margin: 0 0 10px 40px
+    }
+    &__menu-container {
+        display: flex;
+        justify-content: space-between;
+    }
+    &__arrow {
+    }
+    background: #ffffff;
+    &__menu-container {
+        display: flex;
+    }
+    &__main-subcontent {
+       
+    }
+    &__main-extra{
+        margin-top:10px;
+    }
+    &__menu-title {
+    }
+    &__main {
+        // padding: 10px 0 20px 30px;
+        &-count {
+            margin-right: 20px;
+        }
+    }
+    &__header {
+        margin-bottom: 5px;
+        padding: 20px 0 20px 20px;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: solid 1px #c5cee0;
+        &-title {
+            font-family: "SF Pro Display Regular";
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 20px;
+            color: black;
+        }
+
+        &-btn {
+            background: transparent;
+            cursor: pointer;
+            margin-right: 10px;
+            border: none;
+        }
+    }
+   
+}
+.menu__additional {
+    &-item{
+        margin: 0 0 10px 0;
+    }
+}
+.main-subcontent__btn {
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    margin: 0;
+    padding: 0;
+    font-family: "SF Pro Display Regular";
+    font-weight: 600;
+    color: #2E3A59;
+    &--image{
+        position: relative;
+    }
+}
+.arrow_up {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid black;
+}
+.arrow{
+    transform: rotate(270deg);
+    transition: all 0.5s ease;
+     &-container{
+    position: absolute;
+    transform: translateX(-100%);
+  }
+}
+.arrow-rotate{
+    transform: rotate(0deg);
+}
+// Label style
+
+.label {
+    &__form {
+        display: flex;
+    }
+}
+
+// Search Component
+.search {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &__label {
+        display: flex;
+        
+        &-btn {
+            background: transparent;
+            cursor: pointer;
+            border: none;
+            display: flex;
+        }
+        &-title {
+            font-family: "SF Pro Display Regular";
+            font-size: 14px;
+            line-height: 20px;
+            color: rgba(46, 58, 89, 0.8);
+        }
+        &-checkbox{
+            
+        }
+        
+    }
+    &__tool {
+        background-color: white;
+        display: flex;
+        justify-content: space-between;
+        width: 320px;
+        margin: 10px 50px 10px 0;
+        align-items: center;
+        padding: 6px;
+        border-radius: 2px;
+        &-image {
+            transform: translateY(20%);
+        }
+        &-settings {
+        }
+        &-find {
+            outline: none;
+            border: none;
+        }
+        &-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+    }
+}
+.search .search__label .search__label-checkbox{
+    height: 15px;
+    width: 15px;
+    transform: translateY(17%);
+    margin: 0 10px 0 20px;
+}
+
+.active-main_wrapper{
+    display: grid;
+    grid-template-columns:auto;
+    width: 100vw;
+    height: 100vh;
+}
+
+.navbar__transition-enter{
+    position: absolute;
+    transform: translateX(-110%);
+}
+.navbar__transition-enter-active{
+  transform: translateX(0%);
+  transition: all 0.5s ease;
+}
+.navbar__transition-exit{
+    position: absolute;
+    transform: translateX(0%);
+  transition: all 0.5s ease;
+}
+.navbar__transition-exit-active{
+    transform: translateX(-110%);
+    transition: all 0.5s ease;
+}
+
+
+.menu__additional-enter{
+    position: absolute;
+    transform: translateY(-110%);
+}
+.menu__additional-enter-active{
+    transform: translateY(0%);
+    transition: all 0.1s ease;
+}
+.menu__additional-exit{
+    position: absolute;
+    transform: translateY(0%);
+  transition: all 0.1s ease;
+}
+.menu__additional-exit-active{
+    transform: translateY(-110%);
+    transition: all 0.1s ease;
+}

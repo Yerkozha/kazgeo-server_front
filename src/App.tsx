@@ -1,52 +1,62 @@
 import React, { Component } from 'react';
 import './assets/scss/style.scss';
 import './App.scss'
-import { BrowserRouter, Route, withRouter,Switch } from "react-router-dom";
+import { BrowserRouter, Route, withRouter, Switch, Redirect } from "react-router-dom";
 import { useRoutes } from './router/useRoutes';
-import HeaderContainer from './components/header/HeaderContainer';
+import Header from './components/header/Header';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Preloader from './components/common/Preloader/Preloader';
 import { compose } from 'redux';
 import { connect, Provider } from 'react-redux';
 import store, { AppStateType } from './redux/redux';
-import {initializeApp} from './redux/app-reducer'
+import { initializeApp, toggleModal } from './redux/app-reducer'
 
-import  Footer  from 'antd';
-import Enter from './page/enter/Enter';
+import MyDocument from './page/MyDocument/MyDocument';
+import Main from './page/enter/Main';
+import { MainLayout } from './components/layout/MainLayout';
+import { Mail } from './page/Mail/Mail';
+import { LoginPage } from './page/login/Login';
+import { NewLabel } from './page/Mail/NewLabel';
+import MailContainer from './page/Mail/MailContainer';
+
+
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
 type DispatchPropsType = {
-    initializeApp: () => void
+  initializeApp: () => void
+  toggleModal: () => void
 }
 
 class App extends Component<MapPropsType & DispatchPropsType> {
 
   componentDidMount() {
-    this.props.initializeApp()
+     this.props.initializeApp()
   }
 
   render() {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-   // const routes = useRoutes(this.props.post);
 
     if (!this.props.initialized) {
-      return <Preloader/>
-  }
-
-  console.log(this.props.post , 'post')
+      return <Preloader />
+    }
+    
     return (
       <div className='wrapper'>
-        <HeaderContainer />
+        {!!this.props.id && <Header toggleModal={this.props.toggleModal} isModal={this.props.isModal}/> }
         <div className='main'>
-          <Router>
           <Switch>
-            <Route path='/' exact>
-                 <Enter post={this.props.post} />
-            </Route>
+            <Route path='/' exact render={() => <Redirect to={'/login'}/> } />
+            <Route path='/mail/:mailId?' exact render={() => <MailContainer />} />
+
+            <Route path='/my-document' exact render={() => <MyDocument toggleModal={this.props.toggleModal} isModal={this.props.isModal} />} />
+            
+            <Route path='/layout' exact render={() => <MainLayout />} />
+            <Route path='/login' exact render={() => <LoginPage />} />
+            <Route path='/create-label' exact render={() => <NewLabel />} />
+
             <Route path='*'
-                                       render={() => <div>404 NOT FOUND</div>}/>
-        </Switch>
-          </Router>
+              render={() => <div>404 NOT FOUND</div>} />
+          </Switch>
           {/* <Route path='/dialogs'
                            render={() => <DialogsContainer/>}/>
 
@@ -59,7 +69,6 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                     <Route path='/login'
                            render={() => <LoginPage/>}/> */}
         </div>
-       
       </div>
     )
   }
@@ -67,18 +76,19 @@ class App extends Component<MapPropsType & DispatchPropsType> {
 
 const mapStateToProps = (state: AppStateType) => ({
   initialized: state.app.initialized,
-  post: state.post.post
+  isModal: state.app.isModal,
+  id: state.auth.id
 })
 
 let AppContainer = compose<React.ComponentType>(
   withRouter,
-  connect(mapStateToProps, {initializeApp}))(App)
+  connect(mapStateToProps, { initializeApp, toggleModal }))(App)
 
 const Documentolog: React.FC = () => {
   return <BrowserRouter>
-      <Provider store={store}>
-          <AppContainer/>
-      </Provider>
+    <Provider store={store}>
+      <AppContainer />
+    </Provider>
   </BrowserRouter>
 }
 

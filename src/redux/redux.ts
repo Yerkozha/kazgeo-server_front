@@ -1,14 +1,18 @@
 import {Action, applyMiddleware, combineReducers, compose, createStore} from "redux";
 
 import thunkMiddleware, {ThunkAction} from "redux-thunk";
+import {reducer as formReducer} from 'redux-form'
 
 import appReducer from "./app-reducer";
-import postReducer from "./post-reducer";
+import authReducer from "./auth-reducer";
+import mailReducer from "./mail-reducer";
 
 let rootReducer = combineReducers({
   
     app: appReducer,
-    post: postReducer
+    auth: authReducer,
+    mail: mailReducer,
+    form: formReducer
 })
 
 type RootReducerType = typeof rootReducer; // (globalstate: AppStateType) => AppStateType
