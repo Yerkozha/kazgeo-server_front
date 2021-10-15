@@ -20,8 +20,8 @@ deploy to prod server:
   script:
     - ssh -i key.pem -o 'StrictHostKeyChecking no' steppe@194.233.165.33 git -C /home/steppe/http/www/kazgeo_front checkout -- .
     - ssh -i key.pem -o 'StrictHostKeyChecking no' steppe@194.233.165.33 git -C /home/steppe/http/www/kazgeo_front pull origin main
-    - ssh -i key.pem -o 'StrictHostKeyChecking no' steppe@194.233.165.33 npm install
-    - ssh -i key.pem -o 'StrictHostKeyChecking no' steppe@194.233.165.33 npm run build
+    - ssh -i key.pem -o 'StrictHostKeyChecking no' steppe@194.233.165.33 cd /home/steppe/http/www/kazgeo_front && npm install
+    - ssh -i key.pem -o 'StrictHostKeyChecking no' steppe@194.233.165.33 cd /home/steppe/http/www/kazgeo_front && npm run build
   after_script:
     - rm key.pem
   only:
