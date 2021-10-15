@@ -1,0 +1,28 @@
+image: docker:stable
+services:
+- docker:dind
+
+stages:
+- deploy_prod
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
+
+deploy to prod server:
+  image: alpine
+  stage: deploy_prod
+  before_script:
+    - apk update
+    - apk add --no-cache openssh
+    - echo "$SSH_PRIVATE_KEY" >> key.pem
+    - chmod 400 key.pem
+  script:
+    - ssh -i key.pem -o 'StrictHostKeyChecking no' steppe@194.233.165.33 git -C /home/steppe/http/www/kazgeo_front checkout -- .
+    - ssh -i key.pem -o 'StrictHostKeyChecking no' steppe@194.233.165.33 git -C /home/steppe/http/www/kazgeo_front pull origin main
+    - ssh -i key.pem -o 'StrictHostKeyChecking no' steppe@194.233.165.33 npm install
+    - ssh -i key.pem -o 'StrictHostKeyChecking no' steppe@194.233.165.33 npm run build
+  after_script:
+    - rm key.pem
+  only:
+    - main
