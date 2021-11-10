@@ -16,8 +16,10 @@ import Main from './page/enter/Main';
 import { MainLayout } from './components/layout/MainLayout';
 import { Mail } from './page/Mail/Mail';
 import { LoginPage } from './page/login/Login';
-import { NewLabel } from './page/Mail/NewLabel';
+import { NewLabel } from './page/label/NewLabel';
 import MailContainer from './page/Mail/MailContainer';
+import ProfileContainer from './page/Profile/ProfileContainer';
+import { Message } from './page/Mail/Message/Message';
 
 
 
@@ -46,13 +48,14 @@ class App extends Component<MapPropsType & DispatchPropsType> {
         <div className='main'>
           <Switch>
             <Route path='/' exact render={() => <Redirect to={'/login'}/> } />
-            <Route path='/mail/:mailId?' exact render={() => <MailContainer />} />
+            <Route path='/mail/:mailId?' render={() => <MailContainer />} />
+            <Route path='/my-document' render={() => <MyDocument toggleModal={this.props.toggleModal} isModal={this.props.isModal} />} />
+            <Route path='/layout' render={() => <MainLayout />} />
+            <Route path='/login' render={() => <LoginPage />} />
+            <Route path='/create-label' render={() => <NewLabel toggleModal={this.props.toggleModal} isModal={this.props.isModal} />} />
 
-            <Route path='/my-document' exact render={() => <MyDocument toggleModal={this.props.toggleModal} isModal={this.props.isModal} />} />
-            
-            <Route path='/layout' exact render={() => <MainLayout />} />
-            <Route path='/login' exact render={() => <LoginPage />} />
-            <Route path='/create-label' exact render={() => <NewLabel />} />
+            <Route path='/profile' render={() => <ProfileContainer />} />
+            <Route path='/message' render={() => <Message toggleModal={this.props.toggleModal} isModal={this.props.isModal} />} />
 
             <Route path='*'
               render={() => <div>404 NOT FOUND</div>} />

@@ -3,7 +3,7 @@ import '../../page/Main.scss'
 import set from '../../assets/image/icon/settings_white.svg'
 import plus from '../../assets/image/icon/plus.svg'
 import { Table, Tag, Space } from 'antd';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom'
 
 import { CSSTransition } from 'react-transition-group';
 
@@ -18,11 +18,9 @@ export const MainLayout = (props: any) => {
         isYet: false
     })
 
-
     return (
         <div className={props.isModal ? "main__wrapper" : "active-main_wrapper"}>
-            <CSSTransition 
-                in={props.isModal}
+            <CSSTransition in={props.isModal}
                 timeout={300}
                 classNames="navbar__transition"
                 mountOnEnter
@@ -38,9 +36,9 @@ export const MainLayout = (props: any) => {
                                     <button className="navbar__header-btn">
                                         <img src={set} alt="" />
                                     </button>
-                                    <button className="navbar__header-btn">
-                                        <img src={plus} alt="" />
-                                    </button>
+                                    <Link to="/message" className="navbar__header-btn">
+                                        <img src={plus} alt="Plus" />
+                                    </Link>
                                 </div>
                             </div>
 
@@ -49,7 +47,7 @@ export const MainLayout = (props: any) => {
                                     <li className="navbar__menu-item">
                                         <div className="navbar__menu-container">
                                             <div className="navbar__main-item">
-                                                <button className="main-subcontent__btn main-subcontent__btn--image" onClick={() => setState((s) => ({
+                                                <Link to='/mail' className="main-subcontent__btn main-subcontent__btn--image" onClick={() => setState((s) => ({
                                                     ...s,
                                                     isMailActive: !state.isMailActive
                                                 }))}>
@@ -57,7 +55,7 @@ export const MainLayout = (props: any) => {
                                                         <CaretDown className={state.isMailActive ? 'arrow' : 'arrow-rotate'} />
                                                     </div>
                                                     Входящие
-                                                </button>
+                                                </Link>
 
                                                 {state.isMailActive && <ul className="navbar__main-subcontent">
                                                     <li className="navbar__main-extra">
@@ -138,7 +136,7 @@ export const MainLayout = (props: any) => {
 
 
             <div className="content">
-                <Search />
+                <Search sendMail={props.sendMail} formData={props.formData} />
                 {props.children}
             </div>
 

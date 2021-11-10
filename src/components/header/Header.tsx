@@ -16,11 +16,11 @@ function Header(props:any) {
                 <div className="header__inner">
                     <div className="header__menu">
                         <ul className="header__menu-list">
-                            <li className="header__menu-item"><Link to="/" className="header__menu-link" onClick={()=>{
+                            <li className="header__menu-item"><Link to="/mail" className="header__menu-link" onClick={()=>{
                                 props.toggleModal(!props.isModal)
                             }}>Почта</Link></li>
                             <li className="header__menu-item"><Link to="/my-document" className="header__menu-link">Мои документы</Link></li>
-                            <li className="header__menu-item"><Link to="/reference" className="header__menu-link">Справочники</Link></li>
+                            <li className="header__menu-item"><Link to="/profile" className="header__menu-link">Справочники</Link></li>
                             <li className="header__menu-item"><Link to="/document-flow" className="header__menu-link">Документооборот</Link></li>
                             <li className="header__menu-item"><Link to="/library" className="header__menu-link">Библиотека документов</Link></li>
                         </ul>

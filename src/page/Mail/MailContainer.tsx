@@ -3,12 +3,14 @@ import {connect} from "react-redux";
 import {withRouter, RouteComponentProps} from "react-router-dom";
 import {compose} from "redux";
 import { toggleModal } from '../../redux/app-reducer';
+import { getAllMail } from '../../redux/mail-reducer';
 import {AppStateType} from '../../redux/redux';
 import { Mail } from './Mail';
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
 type DispatchPropsType = {
     toggleModal: () => void
+    getAllMail : () => void
 }
 
 type PathParamsType = {
@@ -42,11 +44,17 @@ class MailContainer extends React.Component<PropsType> {
 
     componentDidMount() {
         this.updateMail();
+        
+        this.props.getAllMail();
+        debugger
     }
 
     componentDidUpdate(prevProps: PropsType, prevState: PropsType) {
         if (this.props.match.params.mailId != prevProps.match.params.mailId) {
             this.updateMail();
+        }
+        if( this.props.data !== prevProps.data ){
+            
         }
     }
 
@@ -55,14 +63,14 @@ class MailContainer extends React.Component<PropsType> {
 
     render() {
         return (
-            <Mail toggleModal={this.props.toggleModal} isModal={this.props.isModal} />
+            <Mail toggleModal={this.props.toggleModal} isModal={this.props.isModal} data={this.props.data} />
         )
     }
 }
 
 let mapStateToProps = (state: AppStateType) => {
     return ({
-        mailId: state.mail.id,
+        mailId: state.mail.mailId,
         mail: state.mail.mail,
         labels: state.mail.labels,
         attachments: state.mail.attachments,
@@ -72,13 +80,14 @@ let mapStateToProps = (state: AppStateType) => {
         created_at: state.mail.created_at,
         updated_at: state.mail.updated_at,
 
+        data: state.mail.data,
+
         isModal: state.app.isModal,
         userId: state.auth.id
     })
 }
-
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {toggleModal}),
+    connect(mapStateToProps, {toggleModal,getAllMail}),
     withRouter
 )(MailContainer);
 

@@ -1,4 +1,4 @@
-import {instance, APIResponseType} from "./api";
+import {instance, APIResponseType, configFormData} from "./api";
 import {config} from './api'
 
 type PositionDataType =  {
@@ -58,11 +58,24 @@ type MailResponceDataType = {
    created_at: null
    updated_at: null
 }
+type MailSendDataType = {
+    attachements: object[]
+    created_at: string
+    description: string
+    id: number
+    notify_me: string
+    parent_id: number|null
+    response_type: string|null
+    sender: object
+    title: string
+    updated_at: string
+}
 
 export const mailAPI = {
-    
     getMail() {
-        return instance.get<APIResponseType<MailResponceDataType>>(`v1/mails`,config).then(res => res.data)
+        return instance.get<APIResponseType<any>>(`v1/mails`,config).then(res => res.data)
+    },
+    sendMail(files: any){
+        return instance.post<APIResponseType<MailSendDataType>>(`v1/mails/send`,files,configFormData).then(res => res.data)
     }
-    
 }

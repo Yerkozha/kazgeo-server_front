@@ -6,19 +6,21 @@ import {useDispatch, useSelector} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import { login } from '../../redux/auth-reducer'
 import { AppStateType } from '../../redux/redux'
+import style from './Login.module.css'
+
 
 
 
 const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType> >
     = ({handleSubmit, error}) => {
-    return (
-        <form onSubmit={handleSubmit}>
+    return (<form onSubmit={handleSubmit} className={style.form}>
+        <div className={style.inner}>
+        <h1 className={style.title}>Авторизация</h1>
             {createField<LoginFormValuesTypeKeys>('Email', 'email', [required], Input)}
             {createField<LoginFormValuesTypeKeys>('Password', 'password', [required], Input, {type: 'password'})}
-            {createField<LoginFormValuesTypeKeys>(undefined, 'rememberMe', [], Input, {type: 'checkbox'}, 'remember me')}
-
             <div>
-                <button>Login</button>
+                <button>Войти</button>
+            </div>
             </div>
         </form>
     )
@@ -43,11 +45,10 @@ export const LoginPage: React.FC = () => {
     }
 
     if (!!id) {
-        return <Redirect to={'/mail'}/>
+        return <Redirect to={'/profile'}/>
     }
 
     return <div>
-        <h1>Login</h1>
         <LoginReduxForm onSubmit={onSubmit} />
     </div>
 }

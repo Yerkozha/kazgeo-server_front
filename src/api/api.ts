@@ -4,21 +4,30 @@ import { message } from "antd";
 export const instance = axios.create({
     baseURL: 'https://api.kazgeo.codetau.com/api/',
     headers:     {
-        'Content-type': 'application/json;',
         'X-Requested-With': 'XMLHttpRequest'
     }
 });
 
 
 const localToken = localStorage.getItem("api_token");
+debugger
 const token = !!localToken && localToken !== "undefined" ? localToken : null;
-
 export const config = {
     headers: {
         'Authorization':`Bearer ${token}`
     }
 }
-
+export const configFormData = {
+    headers: {
+        "Content-Type": "multipart/form-data",
+        "Authorization": `Bearer ${token}`
+    }
+};
+export const configAuth = {
+    headers: {
+        "Content-Type": "application/json"
+    }
+};
 export type APIResponseType<D = {}|[]> = {
     data: D
 }

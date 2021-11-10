@@ -1,0 +1,23 @@
+.read__message-drop{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    z-index:1;
+    top: 106px;
+    width: 170px;
+    transform: translateX(-47%);
+    background-color: #ffffff;
+    border-radius: 2px;
+    border: none;
+    overflow: hidden;
+}
+.drop__down-item{
+    background: transparent;
+    border:none;
+    font-family: "SF Pro Display Regular";
+    font-size: 13px;
+    line-height: 20px;
+    color: rgba(46, 58, 89, 0.8);
+    cursor: pointer;
+}

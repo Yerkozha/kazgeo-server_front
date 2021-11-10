@@ -4,7 +4,7 @@ import {InferActionsTypes} from './redux';
 
 let initialState = {
     initialized: false,
-    isModal: true
+    isModal: false
 };
 
 export type InitialStateType = typeof initialState
@@ -20,7 +20,7 @@ const appReducer = (state = initialState, action: ActionsType): InitialStateType
         case 'DL/APP/SET_MODAL':
             return {
                 ...state,
-                isModal:action.isModal
+                isModal: action.isModal
             }
         default:
             return state;
@@ -29,7 +29,7 @@ const appReducer = (state = initialState, action: ActionsType): InitialStateType
 
 export const actions = {
     initializedSuccess : () => ({type: 'DL/APP/INITIALIZED_SUCCESS'} as const),
-    isModal            : (isModal:boolean) => ({type: 'DL/APP/SET_MODAL',isModal})
+    isModal            : ( isModal:boolean ) => ({type: 'DL/APP/SET_MODAL',isModal} as const)
 }
 
 export const toggleModal = (isModal:boolean) => (dispatch: any) =>
@@ -38,12 +38,8 @@ export const toggleModal = (isModal:boolean) => (dispatch: any) =>
 }
 
 export const initializeApp = () => async (dispatch: any) => {
-    let promise = dispatch(getAuthUserData());
-
-    Promise.all([promise])
-        .then(() => {
+            localStorage.removeItem('api_token')
             dispatch(actions.initializedSuccess());
-        });
 }
 
 

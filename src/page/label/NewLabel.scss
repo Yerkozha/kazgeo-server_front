@@ -1,0 +1,104 @@
+.square__box {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    display: grid;
+    grid-template: auto/repeat(auto-fill, 30px);
+    max-width: 90px;
+}
+.square {
+    height: 20px;
+    width: 20px;
+    border: 1px solid black;
+    clear: both;
+    margin: 5px;
+}
+.square__red {
+    background-color: red;
+}
+.square__green {
+    background-color: green;
+}
+.square__blue {
+    background-color: blue;
+}
+
+.label-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 500px;
+    grid-gap: 25px;
+}
+.list {
+    display: flex;
+    flex-direction: column;
+    
+    &__item {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        &-title{
+            font-family: "SF Pro Display Regular";
+            font-size: 22px;
+            line-height: 20px;
+            color: rgba(46, 58, 89, 0.8);
+        }
+    }
+    &__container {
+        display: flex;
+        cursor: pointer;
+    }
+}
+.list__item-close::before {
+    content: "\f410";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 21px;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+.list__item-btn::before {
+    content: "\f0c9";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font-size: 17px;
+}
+.label-layer {
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 20px 50px 20px 20px;
+}
+.label__top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    
+    &-btn {
+        background-color: rgba(140, 158, 201, 0.8);
+        border: none;
+        padding: 5px 25px 5px 25px;
+        font-family: "SF Pro Display Regular";
+        font-size: 14px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    &-right {
+        font-family: "SF Pro Display Regular";
+        font-size: 17px;
+        color: rgba(46, 58, 89, 0.8);
+    }
+    &-container{
+        display: flex;
+        justify-content: space-between;
+        width: 236px;
+    }
+}
