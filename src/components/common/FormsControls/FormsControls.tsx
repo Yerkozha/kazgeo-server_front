@@ -33,7 +33,7 @@ export const Textarea: React.FC<WrappedFieldProps> = (props) => {
 export const Input: React.FC<WrappedFieldProps> = (props) => {
     //const {input, meta, child, ...restProps} = props;
     const {input, meta, ...restProps} = props;
-    debugger
+    // debugger
     return <FormControl {...props}><input {...input} {...restProps} /></FormControl>
 }
 

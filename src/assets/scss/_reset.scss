@@ -48,6 +48,15 @@ textarea,
 select {
   font: inherit;
 }
+button {
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+  text-decoration: none;
+}
 
 a{
   text-decoration: none;

@@ -20,6 +20,7 @@ import { NewLabel } from './page/label/NewLabel';
 import MailContainer from './page/Mail/MailContainer';
 import ProfileContainer from './page/Profile/ProfileContainer';
 import { Message } from './page/Mail/Message/Message';
+import { DocumentFlow } from './page/document-flow/DocumentFlow';
 
 
 
@@ -56,6 +57,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
 
             <Route path='/profile' render={() => <ProfileContainer />} />
             <Route path='/message' render={() => <Message toggleModal={this.props.toggleModal} isModal={this.props.isModal} />} />
+            <Route path='/document-flow' render={() => <DocumentFlow />} />
 
             <Route path='*'
               render={() => <div>404 NOT FOUND</div>} />

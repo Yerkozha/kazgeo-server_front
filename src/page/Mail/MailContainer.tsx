@@ -46,7 +46,7 @@ class MailContainer extends React.Component<PropsType> {
         this.updateMail();
         
         this.props.getAllMail();
-        debugger
+        // debugger
     }
 
     componentDidUpdate(prevProps: PropsType, prevState: PropsType) {

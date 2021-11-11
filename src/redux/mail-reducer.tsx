@@ -79,7 +79,7 @@ export const actions = {
 // }
 export const getAllMail = () => async (dispatch: any) => {
    // dispatch(actions.setCurrentPage(pageNumber))
-   debugger
+//    debugger
     const {data} = await mailAPI.getMail()
     dispatch(actions.setGetAllMailResponce(data))
     

@@ -10,7 +10,7 @@ export const instance = axios.create({
 
 
 const localToken = localStorage.getItem("api_token");
-debugger
+// debugger
 const token = !!localToken && localToken !== "undefined" ? localToken : null;
 export const config = {
     headers: {
