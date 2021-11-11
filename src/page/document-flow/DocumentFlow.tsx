@@ -117,7 +117,7 @@ export const DocumentFlow = (props: any) => {
             <button className="settings"></button>
           </div>
         </div>
-        <Table columns={columns} dataSource={data} />
+        <Table columns={columns} dataSource={data} scroll={{ x: '100%'}} size="middle"/>
       </div>
     </MainLayoutDocumentFlow>
   )
