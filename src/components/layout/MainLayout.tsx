@@ -136,7 +136,7 @@ export const MainLayout = (props: any) => {
 
 
             <div className="content">
-                <Search sendMail={props.sendMail} formData={props.formData} />
+                <Search sendMail={props.sendMail} formData={props.formData} cancelMail={props.cancelMail} />
                 {props.children}
             </div>
 

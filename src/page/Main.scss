@@ -8,7 +8,16 @@
     font-style: normal;
     font-weight: 600;
 }
-
+%input__mail {
+    background: #ffffff;
+    border: 0.5px solid #c5cee0;
+    box-shadow: 0px 7px 64px rgba(25, 32, 56, 0.07);
+    border-radius: 3px;
+    width: 70vw;
+}
+.content {
+    background-color: #edf1f7;
+}
 .main__wrapper {
     display: grid;
     grid-template-columns: 300px 1fr;
@@ -225,10 +234,11 @@
 .initial-mail {
     &__container {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
     }
     &__info {
         display: flex;
+        width: 300px;
     }
     &__content-list {
         display: flex;
@@ -275,9 +285,9 @@
         text-rendering: auto;
         -webkit-font-smoothing: antialiased;
         transform: rotate(90deg);
-        color: #2E3A59;
+        color: #2e3a59;
     }
-    &__content-label--active{
+    &__content-label--active {
         color: #18a3ff;
         content: "\f02b";
         font-family: "Font Awesome 5 Free";
@@ -289,5 +299,124 @@
         text-rendering: auto;
         -webkit-font-smoothing: antialiased;
         transform: rotate(90deg);
+    }
+}
+.message {
+    &__presentation {
+        background-color: #ffffff;
+        padding: 15px;
+        margin: 12px 44px 12px 12px;
+    }
+    &__title {
+        font-family: "Roboto";
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 38px;
+        border-bottom: 2px solid #5d5fef;
+    }
+    &__title:hover {
+        color: #5d5fef;
+    }
+    &__to-title {
+        font-family: "SF Pro Display Regular";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 16px;
+        color: rgba(33, 37, 41, 0.5);
+        margin-bottom: 0;
+        margin-top: 20px;
+    }
+    &__form-to input {
+        padding: 5px 7px;
+        font-family: "SF Pro Display Regular";
+        font-style: normal;
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 17px;
+        @extend %input__mail;
+    }
+    &__form-to--modify{
+        width: 94vw;
+    }
+    &__form-to input:focus {
+        outline: none;
+    }
+    &__to-container {
+        display: flex;
+        justify-content: space-between;
+    }
+    &__form-theme input {
+        padding: 5px 7px;
+        font-style: normal;
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 17px;
+        width: 75vw;
+        @extend %input__mail;
+    }
+    &__form-theme input:focus {
+        outline: none;
+    }
+    &__upload {
+        background: url("../assets/image/icon/download.png") no-repeat left 12% center;
+        border: 1px solid #212529;
+        display: inline-block;
+        padding: 8px 30px 8px 40px;
+        cursor: pointer;
+        background-color: #ffffff;
+        border-radius: 5px;
+        margin: 10px 0;
+    }
+    &__upload-icon {
+        position: absolute;
+        top: 0;
+    }
+    &__upload input[type="file"] {
+        display: none;
+    }
+    &__to-icon {
+        height: 100%;
+        padding-top: 7px;
+    }
+    &__send-btn {
+        padding: 10px 20px;
+        border: none;
+        font-family: "SF Pro Display Regular";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        background-color: #222B45;
+        color: rgba(255, 255, 255, 0.8);
+        cursor: pointer;
+    }
+    &__send-btn:hover {
+        
+
+    }
+    &__send-btn--delete{
+        background: transparent;
+        color: #FF3D71; 
+    }
+    &__bottom-btn{
+        margin-top: 30px;
+    }
+}
+.notify-read {
+    display: flex;
+    background: #f6e9a5;
+    border-radius: 3px;
+    align-items: center;
+    padding: 10px;
+    margin-top: 10px;
+    &__text {
+        font-family: "Roboto";
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 20px;
+        margin-bottom: 0;
+        margin-left: 10px;
     }
 }

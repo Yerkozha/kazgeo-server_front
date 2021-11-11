@@ -10,6 +10,7 @@ import './Search.scss'
 type SearchPropsType = {
     sendMail: string
     formData: FormData
+    cancelMail: string
 }
 
 const Search: React.FC<SearchPropsType> = (props) => {
@@ -22,15 +23,18 @@ const Search: React.FC<SearchPropsType> = (props) => {
                 <input className="search__label-checkbox" type='checkbox' />
                 {props.sendMail ? <button className="search__label-btn" onClick={() => {
                      dispatch(sendMailGeneral(props.formData))
-                }}><h5 className="search__label-title">{props.sendMail}</h5><CaretDown /></button>
+                }}><h5 className="search__label-title">{props.sendMail}</h5></button>
                     :<button className="search__label-btn" onClick={() => {setOpenModal(!openModal)}}><h5 className="search__label-title">ОТМЕНИТЬ</h5>
                     <ReadMessage open={openModal} />
                     <CaretDown /></button>}
-                
+                {props.cancelMail ? <button className="search__label-btn">
+                    <h5 className="search__label-title">{props.cancelMail}</h5>
+                </button> : 
                 <button className="search__label-btn">
                     <h5 className="search__label-title">ПРИСВОИТЬ ЯРЛЫК</h5>
                     <CaretDown />
-                </button>
+                </button>}
+                
             </div>
             <div className="search__tool">
                 <div className="search__tool-input">

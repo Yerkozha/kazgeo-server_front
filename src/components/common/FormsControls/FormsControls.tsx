@@ -33,7 +33,6 @@ export const Textarea: React.FC<WrappedFieldProps> = (props) => {
 export const Input: React.FC<WrappedFieldProps> = (props) => {
     //const {input, meta, child, ...restProps} = props;
     const {input, meta, ...restProps} = props;
-    debugger
     return <FormControl {...props}><input {...input} {...restProps} /></FormControl>
 }
 
@@ -81,6 +80,7 @@ export class FieldFileInput extends React.Component{
     return(<input
         type='file'
         onChange={this.onChange}
+        id='upload__message'
        />
     )
 }

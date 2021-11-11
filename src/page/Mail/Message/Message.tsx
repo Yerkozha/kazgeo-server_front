@@ -4,9 +4,14 @@ import { FieldFileInput,createField, GetStringKeys, Textarea, ckEditorRender, In
 import { MainLayout } from '../../../components/layout/MainLayout'
 import { required } from '../../../utils/validators/validators'
 import ReactHtmlParser from 'react-html-parser'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { sendMailGeneral } from '../../../redux/mail-reducer'
-
+import '../../Main.scss'
+import MailIcon from '../../../assets/image/icon/send-mail.png'
+import UserIcon from '../../../assets/image/icon/user_circle.png'
+import Download from '../../../assets/image/icon/download.png'
+import { Redirect } from 'react-router'
+import { AppStateType } from '../../../redux/redux'
 
 export const MessageForm: React.FC<InjectedFormProps<CreateFormValuesType>> = ({handleSubmit,error}) => {
     const [toggleMessageCopy, setToggleMessageCopy] = useState({
@@ -15,18 +20,23 @@ export const MessageForm: React.FC<InjectedFormProps<CreateFormValuesType>> = ({
         copy_btn_hidden:true,
         hidden_btn_hidden:true,
     })
+    const isModal = useSelector((state: AppStateType) => state.app.isModal)
 
     return (<div className="message">
         <div className="message__inner">
-            <h1 className="message_title">
+            <h1 className="message__title">
                 Новое письмо
             </h1>
             <form className="message__form" onSubmit={handleSubmit}>
-                <div className="message__form-to">
+                <div className={isModal ? "message__form-to" : "message__form-to" + ' ' + "message__form-to--modify"}>
                     <h1 className="message__to-title">
-                        Кому
+                        Кому:
                     </h1>
-                    {createField<CreateMessageFormValuesTypeKeys>('To', 'to', [required], Textarea)}
+                    <div className="message__to-container">
+                    {createField<CreateMessageFormValuesTypeKeys>('Выберите', 'to', [required], Input)}
+                    <img src={MailIcon} alt="MailIcon" className="message__to-icon" />
+                    <img src={UserIcon} alt="MailIcon" className="message__to-icon" />
+                    </div>
                 </div>
                 {toggleMessageCopy.copy_btn_hidden && <button className="message__copy-btn" onClick={() => {
                     setToggleMessageCopy((s) => ({
@@ -38,11 +48,11 @@ export const MessageForm: React.FC<InjectedFormProps<CreateFormValuesType>> = ({
                     Добавить копию
                 </button>}
                 {toggleMessageCopy.message_copy &&
-                    <div className="message__form-to">
+                    <div className={isModal ? "message__form-to" : "message__form-to" + ' ' + "message__form-to--modify"}>
                         <h1 className="message__to-title">
                             Копия
                         </h1>
-                        {createField<CreateMessageFormValuesTypeKeys>('Copy', 'copy', [required], Textarea)}
+                        {createField<CreateMessageFormValuesTypeKeys>('Copy', 'copy', [required], Input)}
                     </div>
                 }
                 {toggleMessageCopy.hidden_btn_hidden && <button className="message__copy-btn" onClick={() => {
@@ -59,20 +69,32 @@ export const MessageForm: React.FC<InjectedFormProps<CreateFormValuesType>> = ({
                         <h1 className="message__to-title">
                             Скрытая
                         </h1>
-                        {createField<CreateMessageFormValuesTypeKeys>('Hidden', 'hidden', [required], Textarea)}
+                        {createField<CreateMessageFormValuesTypeKeys>('Hidden', 'hidden', [required], Input)}
                     </div>
                 }
-                <div className="message__form-theme">
+                <div className={isModal ? "message__form-theme" : "message__form-theme" + ' ' + "message__form-to--modify"}>
                     <h1 className="message__to-title">
                         Тема
                     </h1>
-                    {createField<CreateMessageFormValuesTypeKeys>('Theme', 'theme', [required], Textarea)}
+                    {createField<CreateMessageFormValuesTypeKeys>('Введите тему сообщения', 'theme', [required], Input)}
                 </div>
+                <label className="message__upload" htmlFor="upload__message">
+                    Загрузить
                 <Field type="file" name="upload" component={FieldFileInput} />
-                <Field name="ckEditor" component={ckEditorRender} />
-                <Field name="notify" component={Input} type='checkbox' />
                 
-                <button>Отправить</button>
+                </label>
+                <Field name="ckEditor" component={ckEditorRender} />
+                <div className="notify-read">
+                <Field name="notify" component={Input} type='checkbox' />
+                <p className="notify-read__text">Сообщить мне о прочтении письма</p>
+                </div>
+                <div className="message__bottom-btn">
+                <button type="submit" className="message__send-btn" >ОТПРАВИТЬ</button>
+                <button type="button" className="message__send-btn message__send-btn--delete" onClick={()=>{
+                    debugger
+                    <Redirect to={'/mail'} />
+                }}>ОТМЕНА</button>
+                </div>
             </form>
         </div>
     </div>
@@ -96,6 +118,7 @@ type NewLabelPropsType = {
     isModal: boolean
 }
 export const Message:React.FC<NewLabelPropsType> = (props) => {
+
     const dispatch = useDispatch()
 
     const formData = new FormData()
@@ -113,7 +136,7 @@ export const Message:React.FC<NewLabelPropsType> = (props) => {
         dispatch(sendMailGeneral(formData))
 
     }
-    return (<MainLayout isModal={props.isModal} toggleModal={props.toggleModal} sendMail='ОТПРАВИТЬ' formData={formData}>
+    return (<MainLayout isModal={props.isModal} toggleModal={props.toggleModal} sendMail='ОТПРАВИТЬ' formData={formData} cancelMail='ОТМЕНИТЬ' >
         <div className="message__presentation">
         <MessageReduxForm onSubmit={onSubmit} />
         </div>
