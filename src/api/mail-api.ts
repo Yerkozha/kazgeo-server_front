@@ -39,7 +39,7 @@ type OwnerDataType ={
 type MailDataType = {
     id: number
     title: string
-    description: string
+    description: any
     notify_me: number
     parent_id: null | number
     response_type: null | number
@@ -47,7 +47,7 @@ type MailDataType = {
     updated_at: Array<string|number>
     created_at: Array<string|number>
 }
-type MailResponceDataType = {
+export type MailResponceDataType = {
    id: number
    mail: MailDataType
    labels: Array<string>
@@ -77,5 +77,11 @@ export const mailAPI = {
     },
     sendMail(files: any){
         return instance.post<APIResponseType<MailSendDataType>>(`v1/mails/send`,files,configFormData).then(res => res.data)
+    },
+    getMailById(mailId: string|number){
+        return instance.get<APIResponseType<MailResponceDataType>>(`v1/mails/${mailId}`,config).then(res => res.data)
+    },
+    deleteMail(mailId: number){
+        return instance.delete(`v1/mails/delete/${mailId}`,config)
     }
 }

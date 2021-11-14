@@ -6,7 +6,7 @@ import { MainLayout } from '../../components/layout/MainLayout';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppStateType } from '../../redux/redux'
 import Paginator from '../../components/Paginator/Paginator';
-
+import MailIcon from '../../assets/image/icon/label.png'
 
 
 export const Mail = (props: any) => {
@@ -14,34 +14,30 @@ export const Mail = (props: any) => {
         //dispatch(requestMail(pageNumber,pageSize))
     }
     const [state,setState] = useState({
-        isActiveLabel: false
+        isActiveLabel: false,
+        mailId: null as null|number
     })
 
     return (<div className='mail'>
-        <MainLayout {...props}>
+        
             {/* <Paginator onPageChanged={onPageChanged} /> */}
             <div className="initial-mail">
-                <div className="initial-mail__container">
-                    <div className="initial-mail__info">
-                        <h1 className="initial-mail__title">От кого</h1>
-                        <h1 className="initial-mail__title">Тема</h1>
-                    </div>
-                    <div className="initial-mail__data">
-                        <h1 className="initial-mail__data-title">Дата</h1>
-                    </div>
-                </div>
+                
                 <div className="initial-mail__content">
                     <ul className="initial-mail__content-list">
 
-                        {props.data && props.data.map((item: any) => {
+                        {props.data && props.data.map((item: any,idx:number) => {
                             return <li className="initial-mail__content-item">
                                 <input type="checkbox" className="initial-mail__content-check" />
-                                <span className={state.isActiveLabel?"initial-mail__content-label--active":"initial-mail__content-label"} onClick={() =>{
+                                 {/* @ts-ignore */}
+                                <img src={MailIcon} alt="MailIcon" className={state.mailId === idx ?"initial-mail__content-label--active":"initial-mail__content-label"} onClick={(e) =>{
                                     setState((s) => ({
                                         ...s,
-                                        isActiveLabel: !state.isActiveLabel}))
+                                        isActiveLabel: !state.isActiveLabel,
+                                        mailId: idx
+                                    }))
                                 }} />
-                                <a href="#" className="initial-mail__content-link">
+                                <Link to={'/mail/'+item.id} className="initial-mail__content-link">
                                     <h1 className="initial-mail__content-from">
                                         {item.mail.sender.name}
                                     </h1>
@@ -51,12 +47,12 @@ export const Mail = (props: any) => {
                                     <h1 className="initial-mail__content-data">
                                         {item.updated_at}
                                     </h1>
-                                </a>
+                                </Link>
                             </li>
                         })}
                     </ul>
                 </div>
             </div>
-        </MainLayout>
+        
     </div>)
 }

@@ -59,10 +59,10 @@ export const MainLayout = (props: any) => {
 
                                                 {state.isMailActive && <ul className="navbar__main-subcontent">
                                                     <li className="navbar__main-extra">
-                                                        <Link to='/' className="main-subcontent__btn">Прочитанные</Link>
+                                                        <Link to='/' className="navbar__main-subtitle">Прочитанные</Link>
                                                     </li>
                                                     <li className="navbar__main-extra">
-                                                        <Link to='/' className="main-subcontent__btn">Непрочитанные</Link>
+                                                        <Link to='/' className="navbar__main-subtitle">Непрочитанные</Link>
                                                     </li>
                                                 </ul>}
 

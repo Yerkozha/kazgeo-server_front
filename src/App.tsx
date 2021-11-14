@@ -49,7 +49,9 @@ class App extends Component<MapPropsType & DispatchPropsType> {
         <div className='main'>
           <Switch>
             <Route path='/' exact render={() => <Redirect to={'/login'}/> } />
+            
             <Route path='/mail/:mailId?' render={() => <MailContainer />} />
+            
             <Route path='/my-document' render={() => <MyDocument toggleModal={this.props.toggleModal} isModal={this.props.isModal} />} />
             <Route path='/layout' render={() => <MainLayout />} />
             <Route path='/login' render={() => <LoginPage />} />
