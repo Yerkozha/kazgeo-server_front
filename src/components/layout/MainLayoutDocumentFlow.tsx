@@ -3,7 +3,6 @@ import './MainLayoutDocumentFlow.scss'
 import { Tree } from 'antd';
 
 export const MainLayoutDocumentFlow = (props: any) => {
-
   const initialTreeData = [
     { 
       title: 'Все',
@@ -37,10 +36,8 @@ export const MainLayoutDocumentFlow = (props: any) => {
     { title: 'По типу контроля', key: 'by_controlType'},
     { title: 'По корреспонденту', key: 'by_correspondent'}
   ]
-  console.log(initialTreeData)
-
+  
   const [treeData] = useState(initialTreeData);
-
   return (
     <div className="documentflow__wrapper">
       <div className="sidebar__documentflow">
@@ -48,7 +45,8 @@ export const MainLayoutDocumentFlow = (props: any) => {
           <span className="sidebar__header__title">Входящие докум</span>
           <div className="sidebar__header__buttons">
             <button className="sidebar__header__button plus"></button>
-            <button className="sidebar__header__button eye"></button>
+            <button className="sidebar__header__button eye" onClick={()=>{
+              props.setShowFilter(!props.showFilter)}}></button>
           </div>
         </div>
         <div className="sidebar__body">

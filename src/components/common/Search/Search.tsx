@@ -7,13 +7,13 @@ import '../../../page/Main.scss'
 import { sendMailGeneral } from '../../../redux/mail-reducer'
 import './Search.scss'
 
-type SearchPropsType = {
-    sendMail: string
-    formData: FormData
-    cancelMail: string
-}
+// type SearchPropsType = {
+//     sendMail: string
+//     formData: FormData
+//     cancelMail: string
+// }
 
-const Search: React.FC<SearchPropsType> = (props) => {
+const Search: React.FC<any> = (props) => {
     const dispatch = useDispatch()
     const [openModal,setOpenModal] = useState(false)
     
