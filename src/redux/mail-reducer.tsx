@@ -22,7 +22,8 @@ let initialState = {
     response_type:null as null| string,
     sender:null as null| object,
     title: null as null|string,
-    data: [] as null|object[]
+    data: [] as null|object[],
+    uniqueMailData: null as any
 };
 
 
@@ -49,6 +50,11 @@ const mailReducer = (state = initialState, action: ActionsType): InitialStateTyp
                 ...state,
                 data: action.data
             }
+        case 'DL/MAILS/SET_UNIQUE_MAIL':
+            return {
+                ...state,
+                uniqueMailData: action.uniqueMailData
+            }
         default:
             return state;
     }
@@ -64,7 +70,9 @@ export const actions = {
     setCurrentPage: (pageNumber: number) => ({ type: 'DL/MAILS/SET_CURRENT_PAGE', pageNumber } as const),
     setSentMailData: (attachements: object[],created_at: string,description: string,mailId: number,notify_me: string,parent_id: number|null,
         response_type: string|null,sender: object,title: string,updated_at: string) => ({type: 'DL/MAILS/SET_SENT_MAIL',attachements,created_at,description,mailId,notify_me,parent_id,response_type,sender,title,updated_at} as const),
-    setGetAllMailResponce: ( data: object[] ) => ({type: 'DL/MAILS/GET_ALL_MAIL',data} as const)
+    setGetAllMailResponce: ( data: object[] ) => ({type: 'DL/MAILS/GET_ALL_MAIL',data} as const),
+    setUniqueMailData: ( uniqueMailData: object ) => ({type: 'DL/MAILS/SET_UNIQUE_MAIL',uniqueMailData} as const)
+    
 }
 
 // export const initializeMailData = () => async (dispatch: any) => {
@@ -97,6 +105,24 @@ export const sendMailGeneral = (files: any) => async (dispatch: any) => {
         message.error("Что-то пошло не так, пожалуйста повторите попытку позже")
     }
     
+}
+
+export const getMailById = ( mailId: number ) => async (dispatch: any) =>{
+    const {data} = await mailAPI.getMailById(mailId)
+    dispatch(actions.setUniqueMailData(data))
+}
+export const deleteMail = ( mailId: number ) => (dispatch: any) =>{
+    try{
+    mailAPI.deleteMail(mailId).then(()=>{
+        message.success('Сообщение успешно удалено')
+        dispatch(getAllMail())
+    }).catch((error)=>{
+        message.error("Что-то пошло не так, пожалуйста повторите попытку позже")
+    })
+}
+    catch{
+        message.error("Что-то пошло не так, пожалуйста повторите попытку позже")
+    }
 }
 
 export type InitialStateType = typeof initialState

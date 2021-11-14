@@ -1,16 +1,20 @@
 import React from 'react';
-import {connect} from "react-redux";
-import {withRouter, RouteComponentProps} from "react-router-dom";
-import {compose} from "redux";
+import { connect } from "react-redux";
+import { withRouter, RouteComponentProps } from "react-router-dom";
+import { compose } from "redux";
+import { MainLayout } from '../../components/layout/MainLayout';
 import { toggleModal } from '../../redux/app-reducer';
-import { getAllMail } from '../../redux/mail-reducer';
-import {AppStateType} from '../../redux/redux';
+import { getAllMail, getMailById, deleteMail } from '../../redux/mail-reducer';
+import { AppStateType } from '../../redux/redux';
 import { Mail } from './Mail';
+import { UniqueMail } from './UniqueMail';
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
 type DispatchPropsType = {
     toggleModal: () => void
-    getAllMail : () => void
+    getAllMail: () => void
+    getMailById: (mailId: number) => void
+    deleteMail: (mailId: number) => void
 }
 
 type PathParamsType = {
@@ -34,17 +38,16 @@ class MailContainer extends React.Component<PropsType> {
             }
         }
 
-        // if (!userId) {
-        //     console.error("ID should exists in URI params or in state ('authorizedUserId')");
-        // } else {
-        //     this.props.getUserProfile(userId)
-        //     this.props.getStatus(userId)
-        // }
+        if (!mailId) {
+            console.error("ID should exists in URI params or in state ('authorizedUserId')");
+        } else {
+            this.props.getMailById(mailId)
+        }
     }
 
     componentDidMount() {
         this.updateMail();
-        
+
         this.props.getAllMail();
         // debugger
     }
@@ -53,8 +56,8 @@ class MailContainer extends React.Component<PropsType> {
         if (this.props.match.params.mailId != prevProps.match.params.mailId) {
             this.updateMail();
         }
-        if( this.props.data !== prevProps.data ){
-            
+        if (this.props.data !== prevProps.data) {
+
         }
     }
 
@@ -62,9 +65,21 @@ class MailContainer extends React.Component<PropsType> {
     }
 
     render() {
-        return (
-            <Mail toggleModal={this.props.toggleModal} isModal={this.props.isModal} data={this.props.data} />
-        )
+
+        if (this.props.match.params.mailId) {
+            return (
+                <MainLayout {...this.props}>
+                    <UniqueMail uniqueMailData={this.props.uniqueMailData} deleteMail={this.props.deleteMail} />
+                </MainLayout>
+            )
+        }
+        else {
+            return (
+                <MainLayout {...this.props}>
+                    <Mail toggleModal={this.props.toggleModal} isModal={this.props.isModal} data={this.props.data} />
+                </MainLayout>
+            )
+        }
     }
 }
 
@@ -81,13 +96,14 @@ let mapStateToProps = (state: AppStateType) => {
         updated_at: state.mail.updated_at,
 
         data: state.mail.data,
+        uniqueMailData: state.mail.uniqueMailData,
 
         isModal: state.app.isModal,
         userId: state.auth.id
     })
 }
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {toggleModal,getAllMail}),
+    connect(mapStateToProps, { toggleModal, getAllMail, getMailById, deleteMail }),
     withRouter
 )(MailContainer);
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Field, InjectedFormProps, reduxForm } from 'redux-form'
-import { FieldFileInput,createField, GetStringKeys, Textarea, ckEditorRender, Input } from '../../../components/common/FormsControls/FormsControls'
+import { FieldFileInput, createField, GetStringKeys, Textarea, ckEditorRender, Input } from '../../../components/common/FormsControls/FormsControls'
 import { MainLayout } from '../../../components/layout/MainLayout'
 import { required } from '../../../utils/validators/validators'
 import ReactHtmlParser from 'react-html-parser'
@@ -13,12 +13,12 @@ import Download from '../../../assets/image/icon/download.png'
 import { Redirect } from 'react-router'
 import { AppStateType } from '../../../redux/redux'
 
-export const MessageForm: React.FC<InjectedFormProps<CreateFormValuesType>> = ({handleSubmit,error}) => {
+export const MessageForm: React.FC<InjectedFormProps<CreateFormValuesType>> = ({ handleSubmit, error }) => {
     const [toggleMessageCopy, setToggleMessageCopy] = useState({
         message_copy: false,
         message_hidden: false,
-        copy_btn_hidden:true,
-        hidden_btn_hidden:true,
+        copy_btn_hidden: true,
+        hidden_btn_hidden: true,
     })
     const isModal = useSelector((state: AppStateType) => state.app.isModal)
 
@@ -28,14 +28,14 @@ export const MessageForm: React.FC<InjectedFormProps<CreateFormValuesType>> = ({
                 Новое письмо
             </h1>
             <form className="message__form" onSubmit={handleSubmit}>
-                <div className={isModal ? "message__form-to" : "message__form-to" + ' ' + "message__form-to--modify"}>
+                <div className={isModal ? "message__form-to" : "message__form-to--modify"}>
                     <h1 className="message__to-title">
                         Кому:
                     </h1>
                     <div className="message__to-container">
-                    {createField<CreateMessageFormValuesTypeKeys>('Выберите', 'to', [required], Input)}
-                    <img src={MailIcon} alt="MailIcon" className="message__to-icon" />
-                    <img src={UserIcon} alt="MailIcon" className="message__to-icon" />
+                        {createField<CreateMessageFormValuesTypeKeys>('Выберите', 'to', [required], Input)}
+                        <img src={MailIcon} alt="MailIcon" className="message__to-icon" />
+                        <img src={UserIcon} alt="MailIcon" className="message__to-icon" />
                     </div>
                 </div>
                 {toggleMessageCopy.copy_btn_hidden && <button className="message__copy-btn" onClick={() => {
@@ -48,7 +48,7 @@ export const MessageForm: React.FC<InjectedFormProps<CreateFormValuesType>> = ({
                     Добавить копию
                 </button>}
                 {toggleMessageCopy.message_copy &&
-                    <div className={isModal ? "message__form-to" : "message__form-to" + ' ' + "message__form-to--modify"}>
+                    <div className={isModal ? "message__form-to" : "message__form-to--modify"}>
                         <h1 className="message__to-title">
                             Копия
                         </h1>
@@ -65,14 +65,14 @@ export const MessageForm: React.FC<InjectedFormProps<CreateFormValuesType>> = ({
                     Добавить скрытую копию
                 </button>}
                 {toggleMessageCopy.message_hidden &&
-                    <div className="message__form-to">
+                    <div className={isModal ? "message__form-to" : "message__form-to--modify"}>
                         <h1 className="message__to-title">
                             Скрытая
                         </h1>
                         {createField<CreateMessageFormValuesTypeKeys>('Hidden', 'hidden', [required], Input)}
                     </div>
                 }
-                <div className={isModal ? "message__form-theme" : "message__form-theme" + ' ' + "message__form-to--modify"}>
+                <div className={isModal ? "message__form-theme" : "message__form-to--modify"}>
                     <h1 className="message__to-title">
                         Тема
                     </h1>
@@ -80,20 +80,20 @@ export const MessageForm: React.FC<InjectedFormProps<CreateFormValuesType>> = ({
                 </div>
                 <label className="message__upload" htmlFor="upload__message">
                     Загрузить
-                <Field type="file" name="upload" component={FieldFileInput} />
-                
+                    <Field type="file" name="upload" component={FieldFileInput} />
+
                 </label>
                 <Field name="ckEditor" component={ckEditorRender} />
                 <div className="notify-read">
-                <Field name="notify" component={Input} type='checkbox' />
-                <p className="notify-read__text">Сообщить мне о прочтении письма</p>
+                    <Field name="notify" component={Input} type='checkbox' />
+                    <p className="notify-read__text">Сообщить мне о прочтении письма</p>
                 </div>
                 <div className="message__bottom-btn">
-                <button type="submit" className="message__send-btn" >ОТПРАВИТЬ</button>
-                <button type="button" className="message__send-btn message__send-btn--delete" onClick={()=>{
-                    debugger
-                    <Redirect to={'/mail'} />
-                }}>ОТМЕНА</button>
+                    <button type="submit" className="message__send-btn" >ОТПРАВИТЬ</button>
+                    <button type="button" className="message__send-btn message__send-btn--delete" onClick={() => {
+                        debugger
+                        <Redirect to={'/mail'} />
+                    }}>ОТМЕНА</button>
                 </div>
             </form>
         </div>
@@ -114,16 +114,16 @@ export type CreateFormValuesType = {
 
 type CreateMessageFormValuesTypeKeys = GetStringKeys<CreateFormValuesType>
 type NewLabelPropsType = {
-    toggleModal: ()=> void
+    toggleModal: () => void
     isModal: boolean
 }
-export const Message:React.FC<NewLabelPropsType> = (props) => {
+export const Message: React.FC<NewLabelPropsType> = (props) => {
 
     const dispatch = useDispatch()
 
     const formData = new FormData()
 
-    const onSubmit = (data:any) => {
+    const onSubmit = (data: any) => {
 
         let notify: any = +data.notify
 
@@ -138,7 +138,7 @@ export const Message:React.FC<NewLabelPropsType> = (props) => {
     }
     return (<MainLayout isModal={props.isModal} toggleModal={props.toggleModal} sendMail='ОТПРАВИТЬ' formData={formData} cancelMail='ОТМЕНИТЬ' >
         <div className="message__presentation">
-        <MessageReduxForm onSubmit={onSubmit} />
+            <MessageReduxForm onSubmit={onSubmit} />
         </div>
     </MainLayout>)
 }
