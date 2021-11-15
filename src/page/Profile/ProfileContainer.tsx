@@ -62,6 +62,8 @@ let mapStateToProps = (state: AppStateType) => {
     //console.log('mapStateToProps PROFILE')
     return ({
         authorizedUserId: state.auth.id,
+        name: state.auth.name,
+        lastname: state.auth.lastname
     })
 }
 

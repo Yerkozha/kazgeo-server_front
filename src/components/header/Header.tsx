@@ -5,7 +5,8 @@ import settings from '../../assets/image/icon/settings.svg'
 import show from '../../assets/image/icon/show.svg'
 import { Modal } from '../common/Modal/Modal'
 import { Link } from 'react-router-dom'
-
+import { useSelector } from 'react-redux'
+import {AppStateType} from '../../redux/redux'
 
 function Header(props:any) {
     let [open, setOpen] = useState(false)
@@ -38,7 +39,7 @@ function Header(props:any) {
                             <li className="header__toolbar-item">
                                 <a href="#" className="header__toolbar-link" onClick={() => setOpen(!open)}>
                                     <div className="header__toolbar-container">
-                                        <h5 className="header__toolbar-title">User</h5>
+                                        <h5 className="header__toolbar-title">{props.userName}</h5>
                                         <Modal open={open} />
                                     </div>
                                 </a>

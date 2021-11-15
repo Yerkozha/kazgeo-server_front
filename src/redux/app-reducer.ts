@@ -38,7 +38,7 @@ export const toggleModal = (isModal:boolean) => (dispatch: any) =>
 }
 
 export const initializeApp = () => async (dispatch: any) => {
-            localStorage.removeItem('api_token')
+            
             dispatch(actions.initializedSuccess());
 }
 

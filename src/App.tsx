@@ -21,6 +21,7 @@ import MailContainer from './page/Mail/MailContainer';
 import ProfileContainer from './page/Profile/ProfileContainer';
 import { Message } from './page/Mail/Message/Message';
 import { DocumentFlow } from './page/document-flow/DocumentFlow';
+import { Settings } from './page/Mail/Settings/Settings';
 
 
 
@@ -36,20 +37,20 @@ class App extends Component<MapPropsType & DispatchPropsType> {
      this.props.initializeApp()
   }
 
+
   render() {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-
+    
     if (!this.props.initialized) {
       return <Preloader />
     }
     
     return (
       <div className='wrapper'>
-        {!!this.props.id && <Header toggleModal={this.props.toggleModal} isModal={this.props.isModal}/> }
+        {!!this.props.id && <Header toggleModal={this.props.toggleModal} isModal={this.props.isModal} userName={this.props.userName}/> }
         <div className='main'>
           <Switch>
             <Route path='/' exact render={() => <Redirect to={'/login'}/> } />
-            
             <Route path='/mail/:mailId?' render={() => <MailContainer />} />
             
             <Route path='/my-document' render={() => <MyDocument toggleModal={this.props.toggleModal} isModal={this.props.isModal} />} />
@@ -59,6 +60,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
 
             <Route path='/profile' render={() => <ProfileContainer />} />
             <Route path='/message' render={() => <Message toggleModal={this.props.toggleModal} isModal={this.props.isModal} />} />
+            <Route path='/settings' render={() => <Settings toggleModal={this.props.toggleModal} isModal={this.props.isModal} />} />
             <Route path='/document-flow' render={() => <DocumentFlow />} />
 
             <Route path='*'
@@ -84,7 +86,8 @@ class App extends Component<MapPropsType & DispatchPropsType> {
 const mapStateToProps = (state: AppStateType) => ({
   initialized: state.app.initialized,
   isModal: state.app.isModal,
-  id: state.auth.id
+  id: state.auth.id,
+  userName:state.auth.name
 })
 
 let AppContainer = compose<React.ComponentType>(

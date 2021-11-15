@@ -14,13 +14,13 @@ const localToken = localStorage.getItem("api_token");
 const token = !!localToken && localToken !== "undefined" ? localToken : null;
 export const config = {
     headers: {
-        'Authorization':`Bearer ${token}`
+        'Authorization':`Bearer ${token ? token : ""}`
     }
 }
 export const configFormData = {
     headers: {
         "Content-Type": "multipart/form-data",
-        "Authorization": `Bearer ${token}`
+        "Authorization": `Bearer ${token ? token : ""}`
     }
 };
 export const configAuth = {

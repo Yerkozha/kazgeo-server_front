@@ -14,7 +14,7 @@ import Search from '../common/Search/Search'
 export const MainLayout = (props: any) => {
 
     const [state, setState] = useState({
-        isMailActive: true,
+        isMailActive: false,
         isYet: false
     })
 
@@ -33,9 +33,9 @@ export const MainLayout = (props: any) => {
                                     props.toggleModal(!props.isModal)
                                 }}>Почта</a>
                                 <div className="navbar__header-container">
-                                    <button className="navbar__header-btn">
-                                        <img src={set} alt="" />
-                                    </button>
+                                    <Link to="/settings" className="navbar__header-btn">
+                                        <img src={set} alt="Settings" />
+                                    </Link>
                                     <Link to="/message" className="navbar__header-btn">
                                         <img src={plus} alt="Plus" />
                                     </Link>

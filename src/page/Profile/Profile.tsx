@@ -1,18 +1,16 @@
 import {UserOutlined, PlusCircleOutlined} from "@ant-design/icons";
 import {Row, Col, Avatar, Input, Button, message, Form, Card, Upload} from "antd";
 import React from 'react';
+import '../Main.scss'
 
-type PropsType = {
-    
-    
-}
 
-const Profile:React.FC<PropsType> = (props) => {
+
+const Profile:React.FC = (props:any) => {
     let formRef = React.createRef()
     return (
         <div className={"profilePage"}>
         <Row>
-            <h1 style={{fontWeight: "bold", fontSize: "24px"}}>ПРОФИЛЬ</h1>
+            <h1 className='profile__title'>ПРОФИЛЬ</h1>
         </Row>
         <Row gutter={14} style={{marginBottom: "14px"}}>
             <Col span={8}>
@@ -56,32 +54,15 @@ const Profile:React.FC<PropsType> = (props) => {
                         //style={{marginLeft: '100px'}}
                         name="basic"
                     >
-                        <Row gutter={14}>
-                            <Col span={8}><span style={{float: "left"}}><h3>Фамилия</h3></span></Col>
-                            <Col span={12} className={'text-left'}>
-                                <Form.Item
-                                    name='last_name'
-                                >
-                                    {true ?
-                                        "Yerkozha" :
-
-                                        <Input
-                                            placeholder='Введите фамилию'
-                                            size='large'
-                                        />
-
-                                    }
-                                </Form.Item>
-                            </Col>
-                        </Row>
+                        
                         <Row gutter={14}>
 
-                            <Col span={8}><span style={{float: "left"}}> <h3>Имя </h3></span></Col>
+                            <Col span={8}><span style={{float: "left"}}> <h3>Пользователь: </h3></span></Col>
                             <Col span={12} className={'text-left'}>
                                 <Form.Item
                                     name='first_name'
                                 >
-                                    {true ? 'Yerkozha' :
+                                    {true ? props.name :
 
                                         <Input
                                             placeholder='Введите имя'
@@ -92,26 +73,7 @@ const Profile:React.FC<PropsType> = (props) => {
                                 </Form.Item>
                             </Col>
                         </Row>
-                        <Row gutter={14}>
-                            <Col span={8}><span style={{float: "left"}}> <h3> Отчество </h3></span></Col>
-                            <Col span={12} className={'text-left'}>
-                                <Form.Item
-
-                                    name='middle_name'
-                                >
-                                    {true ? "Temirbekovich" :
-
-                                        <Input
-                                            placeholder='Введите Отчество'
-
-                                            value={"Temirbekovich"}
-                                            size='large'
-                                        />
-
-                                    }
-                                </Form.Item>
-                            </Col>
-                        </Row>
+                        
                         {/* <Row gutter={14}>
                             <Col span={8}><span style={{float: "left"}}><h3>Контактый Email</h3></span></Col>
                             <Col span={12} className={'text-left'}>

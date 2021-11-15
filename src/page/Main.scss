@@ -53,16 +53,16 @@
         // padding: 10px 0 20px 30px;
         &-count {
             margin-right: 20px;
-            font-family: 'SF Pro Display Medium';
+            font-family: "SF Pro Display Medium";
             font-weight: 600;
             color: #2e3a59;
         }
     }
-    &__main-subtitle{
-        font-family: 'SF Pro Display Regular';
+    &__main-subtitle {
+        font-family: "SF Pro Display Regular";
         font-size: 15px;
-line-height: 20px;
-color: #2E3A59;
+        line-height: 20px;
+        color: #2e3a59;
     }
     &__header {
         margin-bottom: 5px;
@@ -99,7 +99,7 @@ color: #2E3A59;
     border: none;
     margin: 0;
     padding: 0;
-    font-family: 'SF Pro Display Medium';
+    font-family: "SF Pro Display Medium";
     font-weight: 600;
     color: #2e3a59;
     &--image {
@@ -147,8 +147,10 @@ color: #2E3A59;
         &-btn {
             background: transparent;
             cursor: pointer;
+            display: flex;
+            margin-right: 20px;
             border: none;
-            padding: 5px 0 5px 0;   
+            padding: 5px 0 5px 0;
             transition: 0.5s ease all;
         }
         &-btn:hover {
@@ -304,7 +306,7 @@ color: #2E3A59;
         -o-appearance: none;
         outline: none;
         content: none;
-        justify-self: center
+        justify-self: center;
     }
 
     & input[type="checkbox"]:before {
@@ -485,152 +487,284 @@ color: #2E3A59;
     }
 }
 
-
 // Mail Id
-%font-15__size-17{
+%font-15__size-17 {
     font-size: 15px;
     line-height: 17px;
 }
-.unique-mail{
+.unique-mail {
     margin: 20px;
     margin-right: 30px;
     background-color: #ffffff;
-    
-    &__inner{
+
+    &__inner {
         display: flex;
         flex-direction: column;
         padding: 20px;
-        
     }
-    
-    &__title{
-        border-bottom: 1px solid #5D5FEF;
+
+    &__title {
+        border-bottom: 1px solid #5d5fef;
     }
-    
-    &__title-content{
+
+    &__title-content {
         font-size: 17px;
         line-height: 20px;
         word-wrap: break-word;
         max-width: 1147px;
         font-weight: 500;
         padding-bottom: 18px;
-        @extend %font__weight-500
+        @extend %font__weight-500;
     }
-    &__from{
+    &__from {
         display: flex;
         justify-content: space-between;
-        margin: 20px 0 20px 0; 
-        
-        &-name{
-            font-weight: normal;    
+        margin: 20px 0 20px 0;
+
+        &-name {
+            font-weight: normal;
         }
     }
-    &__from-name{
-        @extend %font-15__size-17
+    &__from-name {
+        @extend %font-15__size-17;
     }
-    &__from-data{
-        background-color: #EDF1F7;
+    &__from-data {
+        background-color: #edf1f7;
         padding: 13px;
         border-radius: 5px;
-        @extend %font-15__size-17
+        @extend %font-15__size-17;
     }
-    &__from-inner{
+    &__from-inner {
         display: flex;
         max-width: 465px;
         width: 100%;
         justify-content: space-between;
         padding: 13px;
-        background-color: #EDF1F7;
+        background-color: #edf1f7;
         border-radius: 5px;
         position: relative;
-        
     }
-    &__modal{
+    &__modal {
         position: absolute;
         bottom: 0;
         right: 0;
         background-color: #ffffff;
-        transform:translate(76%, 100%);
+        transform: translate(76%, 100%);
         display: flex;
         flex-direction: column;
         border-radius: 5px;
         box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-        &-from{
+        &-from {
             display: flex;
             justify-content: space-between;
             padding: 10px 30px 8px 30px;
         }
-        & h1{
-            font-family: 'SF Pro Display Regular';
+        & h1 {
+            font-family: "SF Pro Display Regular";
             font-size: 15px;
             line-height: 17px;
             font-weight: 500;
             margin-bottom: 0;
             padding-right: 50px;
         }
-        & p{
-            font-family: 'SF Pro Display Regular';
+        & p {
+            font-family: "SF Pro Display Regular";
             font-size: 15px;
             line-height: 17px;
             font-style: normal;
             margin-bottom: 0;
         }
     }
-    & h1{
+    & h1 {
         margin-bottom: 0;
     }
-    &__content{
+    &__content {
         font-weight: normal;
-        @extend %font-15__size-17
+        @extend %font-15__size-17;
     }
 
-    &__options{
-        border-top: 0.5px solid #C5CEE0;
+    &__options {
+        border-top: 0.5px solid #c5cee0;
         display: flex;
         justify-content: space-between;
         height: 70px;
         align-items: center;
         margin-left: 30px;
-        &-main{
+        &-main {
             display: flex;
             justify-content: space-around;
             margin-bottom: 0;
             max-width: 758px;
             width: 100%;
-            
         }
-        &-btn{
-            font-family: 'SF Pro Display Regular';
+        &-btn {
+            font-family: "SF Pro Display Regular";
             font-size: 15px;
             line-height: 17px;
             color: rgba(46, 58, 89, 0.8);
             transition: 0.2s ease all;
             padding: 10px;
             border-radius: 2px;
-            
         }
-        
+
         &-btn:hover {
             background-color: rgba(124, 127, 133, 0.425);
         }
-        &-btn:focus{
+        &-btn:focus {
             background-color: rgba(124, 127, 133, 0.425);
         }
         &-delete {
-            font-family: 'SF Pro Display Regular';
+            font-family: "SF Pro Display Regular";
             font-size: 15px;
             line-height: 17px;
             padding: 10px;
             border-radius: 2px;
             transition: 0.2s ease all;
             margin-right: 30px;
-            color: #FF3D71;
+            color: #ff3d71;
         }
-        &-delete:focus{
+        &-delete:focus {
             background-color: rgba(124, 127, 133, 0.425);
-        }   
-        &-delete:hover{
+        }
+        &-delete:hover {
             background-color: rgba(124, 127, 133, 0.425);
         }
     }
+}
+.settings {
+    &__params {
+        & input[type="checkbox"] {
+            -moz-appearance: none;
+            -o-appearance: none;
+            outline: none;
+            content: none;
+            justify-self: center;
+        }
+
+        & input[type="checkbox"]:before {
+            font-family: "FontAwesome";
+            content: "\f00c";
+            font-size: 12px;
+            color: transparent !important;
+            display: block;
+            width: 18px;
+            height: 18px;
+            background: #ffffff;
+            border: 0.5px solid #c5cee0;
+            box-sizing: border-box;
+            box-shadow: 0px 0px 0px rgba(90, 113, 208, 0.107337);
+            border-radius: 3px;
+        }
+
+        & input[type="checkbox"]:checked:before {
+            color: black !important;
+        }
+    }
+    &__form-inner {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-gap: 20px;
+    }
+    &__form {
+        margin: 20px 30px 20px 20px;
+        padding: 20px;
+        background-color: #ffffff;
+        box-shadow: 0px 0px 0px rgba(90, 113, 208, 0.107337);
+    }
+    &__title {
+        font-family: "Roboto";
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 38px;
+        color: #5d5fef;
+        margin-bottom: 0;
+    }
+    &__params .settings__title {
+        border-bottom: 1px solid #5d5fef;
+        padding-bottom: 10px;
+    }
+    &__add-filter {
+        display: flex;
+        border-bottom: 1px solid #5d5fef;
+        padding-bottom: 10px;
+    }
+    &__btn {
+        font-family: "SF Pro Display Regular";
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        padding: 5px 19px;
+        border: 1px solid #222b45;
+        border-radius: 3px;
+        margin-left: 10px;
+    }
+    &__list {
+        border: 0.5px solid #c5cee0;
+        box-shadow: 0px 7px 64px rgba(25, 32, 56, 0.07);
+        border-radius: 3px;
+        margin-top: 20px;
+        max-height: 390px;
+        height: 100%;
+    }
+    &__list-item {
+        display: flex;
+        justify-content: space-between;
+        background: #edf1f7;
+        border-radius: 3px;
+        padding: 12px 10px;
+        margin: 5px;
+    }
+    &__list-title {
+        font-family: "SF Pro Display Regular";
+        font-size: 14px;
+        line-height: 17px;
+    }
+    &__list-btn {
+        cursor: pointer;
+    }
+    &__params input {
+        width: 100%;
+        border: 0.5px solid #c5cee0;
+        box-shadow: 0px 7px 64px rgba(25, 32, 56, 0.07);
+        border-radius: 3px;
+        padding: 12px 10px;
+    }
+    &__params-checkbox {
+        display: flex;
+        margin-top: 20px;
+    }
+    &__params-checkbox input[type="checkbox"] {
+        width: auto;
+    }
+    &__params-checkbox h1 {
+        display: inline-block;
+        margin-top: 0;
+        margin-left: 20px;
+    }
+    &__warning {
+        font-family: "Roboto";
+        font-size: 13px;
+        line-height: 20px;
+        color: #212529;
+        padding: 16px 10px;
+        background: #f6e9a5;
+        border-radius: 3px;
+        margin-top: 30px;
+    }
+    &__btn-cancel {
+        background-color: transparent;
+        color: #2E3A59;
+    }
+}
+.ant-form-item-control-input-content{
+    font-family: "SF Pro Display Regular";
+    font-size: 14px;
+    line-height: 17px;
+}
+.profile__title{
+    font-family: "SF Pro Display Regular";
+    font-size: 24px;
+    line-height: 17px;
+    font-weight: 500;
+    margin: 10px 50px;
 }
