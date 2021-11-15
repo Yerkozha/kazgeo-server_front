@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { MainLayoutDocumentFlow } from '../../components/layout/MainLayoutDocumentFlow'
 import './DocumentFlow.scss'
 import { Checkbox, Table } from 'antd';
+import { FilterComponent } from '../../components/filterComponent/FilterComponent';
 
 export const DocumentFlow = (props: any) => {
-
+  const [showFilter,setShowFilter] = useState(false)
   const columns = [
     {
       title: '',
@@ -100,12 +101,16 @@ export const DocumentFlow = (props: any) => {
       abbr_name: 'Резолюция'
     });
   }
-
+  if(showFilter){
+    return <MainLayoutDocumentFlow setShowFilter={setShowFilter} showFilter={showFilter}>
+      <FilterComponent/>
+      </MainLayoutDocumentFlow>
+  }
   return (
-    <MainLayoutDocumentFlow>
+    <MainLayoutDocumentFlow setShowFilter={setShowFilter} showFilter={showFilter}>
       <div className="docflow__wrapper">
         <div className="docflow__header">
-          <div className="docflow__header__selectors">
+          <div className="docflow__header__buttons">
             <div className="docflow__header__export">
               <Checkbox/>
               <span>ЭКСПОРТ В EXCEL</span>
@@ -119,6 +124,7 @@ export const DocumentFlow = (props: any) => {
         </div>
         <Table columns={columns} dataSource={data} scroll={{ x: '100%'}} size="middle"/>
       </div>
+      
     </MainLayoutDocumentFlow>
   )
 }
