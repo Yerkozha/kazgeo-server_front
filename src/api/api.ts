@@ -8,10 +8,24 @@ export const instance = axios.create({
     }
 });
 
+export function authHeader() {
+    const token = localStorage.getItem('api_token')
+    if ( token ) {
+      return { headers: {
+        'Authorization':`Bearer ${token}`
+    } };
+    } else {
+      return {};
+    }
+  }
+
 
 const localToken = localStorage.getItem("api_token");
 // debugger
 const token = !!localToken && localToken !== "undefined" ? localToken : null;
+
+
+
 export const config = {
     headers: {
         'Authorization':`Bearer ${token ? token : ""}`
@@ -37,13 +51,14 @@ axios.interceptors.response.use(function (response) {
     // Do something with response data
     return response;
   },  (error)=> {
-    if (error.response.status === 401) {
+    
         message.error("Ошибка авторизации, Повторно войдите в систему", 5);
         setTimeout(() => {
             window.location.replace("/login");
         }, 2000)
-
-    } else if (error.response.status === 405) {
+        console.log(error,"error")
+    
+    if (error.response.status === 405) {
         message.warning("Нет данных, по вашему запросу", 5);
     } else {
         if (error.response.data.error !== 'invalid_grant') {

@@ -88,9 +88,14 @@ export const actions = {
 export const getAllMail = () => async (dispatch: any) => {
    // dispatch(actions.setCurrentPage(pageNumber))
 //    debugger
+
     const {data} = await mailAPI.getMail()
     dispatch(actions.setGetAllMailResponce(data))
-    
+}
+
+export const getSentMails = (url: string) => async (dispatch: any) => {
+    const {data} =await mailAPI.getMail(url)
+    dispatch(actions.setGetAllMailResponce(data))
 }
 
 export const sendMailGeneral = (files: any) => async (dispatch: any) => {
@@ -111,6 +116,7 @@ export const getMailById = ( mailId: number ) => async (dispatch: any) =>{
     const {data} = await mailAPI.getMailById(mailId)
     dispatch(actions.setUniqueMailData(data))
 }
+
 export const deleteMail = ( mailId: number ) => (dispatch: any) =>{
     try{
     mailAPI.deleteMail(mailId).then(()=>{
@@ -119,7 +125,7 @@ export const deleteMail = ( mailId: number ) => (dispatch: any) =>{
     }).catch((error)=>{
         message.error("Что-то пошло не так, пожалуйста повторите попытку позже")
     })
-}
+    }
     catch{
         message.error("Что-то пошло не так, пожалуйста повторите попытку позже")
     }

@@ -9,7 +9,11 @@ import Paginator from '../../components/Paginator/Paginator';
 import MailIcon from '../../assets/image/icon/label.png'
 
 
+
 export const Mail = (props: any) => {
+   
+    
+
     const onPageChanged = (pageNumber: number) => {
         //dispatch(requestMail(pageNumber,pageSize))
     }
@@ -17,7 +21,9 @@ export const Mail = (props: any) => {
         isActiveLabel: false,
         mailId: null as null|number
     })
+    
 
+debugger
     return (<div className='mail'>
         
             {/* <Paginator onPageChanged={onPageChanged} /> */}
@@ -39,10 +45,12 @@ export const Mail = (props: any) => {
                                 }} />
                                 <Link to={'/mail/'+item.id} className="initial-mail__content-link">
                                     <h1 className="initial-mail__content-from">
-                                        {item.mail.sender.name}
+                                        {item.mail && item.mail.sender.name}
+                                        {item.receiver.name && item.receiver.name}
                                     </h1>
                                     <h1 className="initial-mail__content-title">
-                                        {item.mail.title}
+                                        {!!item.mail && item.mail.title}
+                                        {item.title && item.title}
                                     </h1>
                                     <h1 className="initial-mail__content-data">
                                         {item.updated_at}

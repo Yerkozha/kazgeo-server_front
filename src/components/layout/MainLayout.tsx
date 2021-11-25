@@ -71,7 +71,7 @@ export const MainLayout = (props: any) => {
                                         </div>
                                     </li>
                                     <li className="navbar__menu-item">
-                                        <Link to='/' className="main-subcontent__btn">
+                                        <Link to='/chosen-messages' className="main-subcontent__btn">
                                             Избранные
                                         </Link>
                                     </li>
@@ -81,7 +81,7 @@ export const MainLayout = (props: any) => {
                                         </Link>
                                     </li>
                                     <li className="navbar__menu-item">
-                                        <Link to='/' className="main-subcontent__btn">
+                                        <Link to='/sent-messages' className="main-subcontent__btn">
                                             Отправленные
                                         </Link>
                                     </li>
