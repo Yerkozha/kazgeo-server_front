@@ -22,6 +22,8 @@ import ProfileContainer from './page/Profile/ProfileContainer';
 import { Message } from './page/Mail/Message/Message';
 import { DocumentFlow } from './page/document-flow/DocumentFlow';
 import { Settings } from './page/Mail/Settings/Settings';
+import { SentMessage } from './page/Mail/SentMessage';
+import { ChosenMessage } from './page/Mail/ChosenMessage';
 
 
 
@@ -60,6 +62,8 @@ class App extends Component<MapPropsType & DispatchPropsType> {
 
             <Route path='/profile' render={() => <ProfileContainer />} />
             <Route path='/message' render={() => <Message toggleModal={this.props.toggleModal} isModal={this.props.isModal} />} />
+            <Route path='/sent-messages' render={()=> <SentMessage toggleModal={this.props.toggleModal} isModal={this.props.isModal} />} />
+            <Route path='/chosen-messages' render={()=> <ChosenMessage toggleModal={this.props.toggleModal} isModal={this.props.isModal} />} />
             <Route path='/settings' render={() => <Settings toggleModal={this.props.toggleModal} isModal={this.props.isModal} />} />
             <Route path='/document-flow' render={() => <DocumentFlow />} />
 

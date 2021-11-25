@@ -1,4 +1,4 @@
-import {instance, APIResponseType, configFormData} from "./api";
+import {instance, APIResponseType, configFormData, authHeader} from "./api";
 import {config} from './api'
 
 type PositionDataType =  {
@@ -72,8 +72,8 @@ type MailSendDataType = {
 }
 
 export const mailAPI = {
-    getMail() {
-        return instance.get<APIResponseType<any>>(`v1/mails`,config).then(res => res.data)
+    getMail(sentMail?: string) {
+        return instance.get<APIResponseType<any>>(`v1/mails`+ (JSON.stringify(sentMail) ?? ''),authHeader()).then(res => res.data)
     },
     sendMail(files: any){
         return instance.post<APIResponseType<MailSendDataType>>(`v1/mails/send`,files,configFormData).then(res => res.data)
@@ -83,5 +83,5 @@ export const mailAPI = {
     },
     deleteMail(mailId: number){
         return instance.delete(`v1/mails/delete/${mailId}`,config)
-    }
+    },
 }
