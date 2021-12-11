@@ -7,12 +7,14 @@ import appReducer from "./app-reducer";
 import authReducer from "./auth-reducer";
 import mailReducer from "./mail-reducer";
 import {labelReducer} from "./label-reducer";
+import { usersReducer } from "./users-reducer";
 
 let rootReducer = combineReducers({
     app: appReducer,
     auth: authReducer,
     mail: mailReducer,
     label: labelReducer,
+    users: usersReducer,
     form: formReducer
 })
 

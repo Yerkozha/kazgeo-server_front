@@ -21,7 +21,6 @@ export function authHeader() {
 
 
 const localToken = localStorage.getItem("api_token");
-// debugger
 const token = !!localToken && localToken !== "undefined" ? localToken : null;
 
 
@@ -29,7 +28,8 @@ const token = !!localToken && localToken !== "undefined" ? localToken : null;
 export const config = {
     headers: {
         'Authorization':`Bearer ${token ? token : ""}`
-    }
+    },
+    data: {}
 }
 export const configFormData = {
     headers: {
@@ -46,19 +46,19 @@ export type APIResponseType<D = {}|[]> = {
     data: D
 }
 
-axios.interceptors.response.use(function (response) {
+instance.interceptors.response.use(function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     return response;
   },  (error)=> {
-    
-        message.error("Ошибка авторизации, Повторно войдите в систему", 5);
-        setTimeout(() => {
-            window.location.replace("/login");
-        }, 2000)
-        console.log(error,"error")
-    
-    if (error.response.status === 405) {
+      if(error.response.status === 401){
+          localStorage.removeItem('api_token')
+          message.error("Ошибка авторизации, Повторно войдите в систему", 5);
+          setTimeout(() => {
+              window.location.replace("/login");
+          }, 2000)
+      }
+    else if (error.response.status === 405) {
         message.warning("Нет данных, по вашему запросу", 5);
     } else {
         if (error.response.data.error !== 'invalid_grant') {

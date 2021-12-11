@@ -1,5 +1,6 @@
 import {instance, APIResponseType, configFormData, authHeader} from "./api";
 import {config} from './api'
+import { LabelResponceDataType } from "./label-api";
 
 type PositionDataType =  {
     id: number
@@ -47,11 +48,12 @@ type MailDataType = {
     updated_at: Array<string|number>
     created_at: Array<string|number>
 }
+
 export type MailResponceDataType = {
    id: number
    mail: MailDataType
-   labels: Array<string>
-   attachments: Array<object>
+   labels: Array<object>
+   attachments: LabelResponceDataType
    is_opened: number
    is_important: number
    send_as: null
@@ -73,7 +75,7 @@ type MailSendDataType = {
 
 export const mailAPI = {
     getMail(sentMail?: string) {
-        return instance.get<APIResponseType<any>>(`v1/mails`+ (JSON.stringify(sentMail) ?? ''),authHeader()).then(res => res.data)
+        return instance.get<APIResponseType<any>>('v1/mails' + (sentMail ?? ''),config).then(res => res.data)
     },
     sendMail(files: any){
         return instance.post<APIResponseType<MailSendDataType>>(`v1/mails/send`,files,configFormData).then(res => res.data)
@@ -84,4 +86,8 @@ export const mailAPI = {
     deleteMail(mailId: number){
         return instance.delete(`v1/mails/delete/${mailId}`,config)
     },
+    
+    getOpenedMails(mailId: number,data: object){
+        return instance.put<APIResponseType<MailResponceDataType>>(`v1/mails/${mailId}`,data,config).then(res => res.data)
+    }
 }

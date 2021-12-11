@@ -1,6 +1,8 @@
 import { InferActionsTypes } from './redux'
-import { labelAPI, LabelResponceDataType } from '../api/label-api'
+import { labelAPI, LabelResponceDataType, LabelTo, mail_label_id } from '../api/label-api'
 import { message } from "antd";
+import { instance } from '../api/api';
+import { getAllMail, setMailIdAndClear } from './mail-reducer';
 
 let initialState = {
     labelId: null         as number | null|undefined,
@@ -79,6 +81,27 @@ export const deleteLabel = (labelId: number) => {
         })
     }
 }
+
+export const attachLabel = ( labelTo: LabelTo ) => ( dispatch: any ) => {
+    labelAPI.attachLabel(labelTo).then(res =>{ 
+        dispatch(getAllMail())
+        dispatch(setMailIdAndClear('1','Delete'))
+        message.success(res.message)
+      
+        const len = document.querySelectorAll("[id='selected_users_checkbox']");
+        for(let i = 0; i < len.length; i++){
+              //@ts-ignore
+            len[i].checked = false
+        }
+        //@ts-ignore
+        document.getElementById('search__label-checkbox').checked = false
+        
+    })
+}
+export const detachLabel = ( mail_label_id: mail_label_id) => ( dispatch: any ) => {
+    labelAPI.detachLabel(mail_label_id)
+}
+
 
 export type InitialStateType = typeof initialState
 type ActionsType = InferActionsTypes<typeof actions>

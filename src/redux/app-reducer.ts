@@ -4,7 +4,7 @@ import {InferActionsTypes} from './redux';
 
 let initialState = {
     initialized: false,
-    isModal: false
+    isModal: true
 };
 
 export type InitialStateType = typeof initialState

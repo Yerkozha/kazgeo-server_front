@@ -39,5 +39,22 @@ export const labelAPI = {
     },
     deleteLabel(labelId: number){
         return instance.delete(`v1/labels/${labelId}`)
+    },
+
+    attachLabel( labelTo: LabelTo ){
+        return instance.post(`v1/mails/label`,labelTo,config).then( res => res.data)
+    },
+    detachLabel( mail_label_id: mail_label_id ){
+      //  config.data = mail_label_id
+        return instance.delete(`v1/mails/labels?mail_id=${mail_label_id.mail_id}&label_id=${mail_label_id.label_id}`,config)
     }
+}
+
+export type LabelTo = {
+    mail_ids: Array<number>
+    label_id: number
+}
+export type mail_label_id = {
+    mail_id: number
+    label_id: number
 }

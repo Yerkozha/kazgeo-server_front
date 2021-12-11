@@ -6,10 +6,14 @@ import { AppStateType } from '../../redux/redux'
 
 import Arrow from '../../assets/image/icon/caret_down.png'
 import { useSelector } from 'react-redux'
+import { Tag } from 'antd'
+import { LabelResponceDataType, mail_label_id } from '../../api/label-api'
 
 type UniqueMailPropsType = {
+    detachLabel: (mail_label_id: mail_label_id) => void
     uniqueMailData: MailResponceDataType
     deleteMail: (mailId: number) => void
+    mailId: string
 }
 
 
@@ -23,12 +27,19 @@ export const UniqueMail: React.FC<UniqueMailPropsType> = (props) => {
     const ownerName = useSelector((state: AppStateType) => state.auth.name)
     const ownerLastname = useSelector((state: AppStateType) => state.auth.lastname)
 
+    const onDetachLabel = (e:any) => {
+        props.detachLabel({  "mail_id": parseInt(props.mailId),
+        "label_id": e})
+    }
     return (<div className='unique-mail'>
         <div className="unique-mail__inner">
             <div className="unique-mail__title">
                 <h1 className="unique-mail__title-content">
                     {props.uniqueMailData?.mail.title}
                 </h1>
+                <div className="unique-mail_labels">
+                {props.uniqueMailData && props.uniqueMailData.labels.map((label: any) => <Tag closable onClose={() => onDetachLabel(label.id)} color={label.color}>{label.name}</Tag>)}
+                </div>
             </div>
             <button className="unique-mail__from" onClick={() => setShowContent((s) => ({
                 ...s,
@@ -36,7 +47,7 @@ export const UniqueMail: React.FC<UniqueMailPropsType> = (props) => {
             }))}>
                 <div className="unique-mail__from-inner">
                     <h1 className="unique-mail__from-name">
-                        {props.uniqueMailData?.mail.sender.email}
+                        {props.uniqueMailData?.mail.sender.name}
                     </h1>
                     <button className="unique-mail__from-popup" onClick={() => setShowContent((s) => ({
                         ...s,

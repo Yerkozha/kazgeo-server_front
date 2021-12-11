@@ -6,22 +6,22 @@ import show from '../../assets/image/icon/show.svg'
 import { Modal } from '../common/Modal/Modal'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import {AppStateType} from '../../redux/redux'
-
-function Header(props:any) {
+import { AppStateType } from '../../redux/redux'
+import { Menu, Dropdown } from 'antd'
+import { ReferencesDropdown } from './ReferencesDropdown'
+export const Header = (props: any) => {
     let [open, setOpen] = useState(false)
     
-    return (
-        <div className='header'>
+    return (<div className='header'>
             <div className="container">
                 <div className="header__inner">
                     <div className="header__menu">
                         <ul className="header__menu-list">
-                            <li className="header__menu-item"><Link to="/mail" className="header__menu-link" onClick={()=>{
-                                props.toggleModal(!props.isModal)
+                            <li className="header__menu-item"><Link to="/mail" className="header__menu-link" onClick={() => {
+                                props.toggleModal(true)
                             }}>Почта</Link></li>
                             <li className="header__menu-item"><Link to="/my-document" className="header__menu-link">Мои документы</Link></li>
-                            <li className="header__menu-item"><Link to="/profile" className="header__menu-link">Справочники</Link></li>
+                            <li className="header__menu-item"><ReferencesDropdown /></li>
                             <li className="header__menu-item"><Link to="/document-flow" className="header__menu-link">Документооборот</Link></li>
                             <li className="header__menu-item"><Link to="/library" className="header__menu-link">Библиотека документов</Link></li>
                         </ul>
@@ -62,5 +62,3 @@ function Header(props:any) {
         </div>
     )
 }
-
-export default Header

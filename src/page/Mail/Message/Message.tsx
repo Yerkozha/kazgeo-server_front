@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Field, InjectedFormProps, reduxForm } from 'redux-form'
+import React, { useEffect, useState, Dispatch } from 'react'
+import { Field, InjectedFormProps, reduxForm, DecoratedFormProps, reset } from 'redux-form'
 import { FieldFileInput, createField, GetStringKeys, Textarea, ckEditorRender, Input } from '../../../components/common/FormsControls/FormsControls'
 import { MainLayout } from '../../../components/layout/MainLayout'
 import { required } from '../../../utils/validators/validators'
@@ -12,6 +12,7 @@ import UserIcon from '../../../assets/image/icon/user_circle.png'
 import Download from '../../../assets/image/icon/download.png'
 import { Redirect } from 'react-router'
 import { AppStateType } from '../../../redux/redux'
+import { setFoundUserData } from '../../../redux/users-reducer'
 
 export const MessageForm: React.FC<InjectedFormProps<CreateFormValuesType>> = ({ handleSubmit, error }) => {
     const [toggleMessageCopy, setToggleMessageCopy] = useState({
@@ -20,8 +21,19 @@ export const MessageForm: React.FC<InjectedFormProps<CreateFormValuesType>> = ({
         copy_btn_hidden: true,
         hidden_btn_hidden: true,
     })
+    const [foundUsers, setFoundUsers] = useState()
+    const usersEmail: Array<string> = []
     const isModal = useSelector((state: AppStateType) => state.app.isModal)
-
+    // const usersEmail = useSelector((state: AppStateType) => state.users.usersEmail)
+    let typingEmail = useSelector((state: AppStateType) => state.users.typingEmail)
+    const data = useSelector((state: AppStateType) => state.users.data)
+    data && data.map((item: any) => {
+        usersEmail.push(item.email)
+    })
+    const foundUsersName = usersEmail.filter(email => {
+        return email.startsWith(typingEmail)
+    })
+    
     return (<div className="message">
         <div className="message__inner">
             <h1 className="message__title">
@@ -33,10 +45,17 @@ export const MessageForm: React.FC<InjectedFormProps<CreateFormValuesType>> = ({
                         Кому:
                     </h1>
                     <div className="message__to-container">
-                        {createField<CreateMessageFormValuesTypeKeys>('Выберите', 'to', [required], Input)}
+                        {createField<CreateMessageFormValuesTypeKeys>('Выберите', 'to', [required], Input,{list: 'toId'})}
+                        <datalist id="toId">
+                            {foundUsersName.map( item => <option value={item} />)}
+                        </datalist>
                         <img src={MailIcon} alt="MailIcon" className="message__to-icon" />
                         <img src={UserIcon} alt="MailIcon" className="message__to-icon" />
                     </div>
+                    <ul className="message__users">
+                    {/* {foundUsersName && foundUsersName.map( item => <li className='message__users-found'>{item}</li>)} */}
+                    </ul>
+                   
                 </div>
                 {toggleMessageCopy.copy_btn_hidden && <button className="message__copy-btn" onClick={() => {
                     setToggleMessageCopy((s) => ({
@@ -91,7 +110,6 @@ export const MessageForm: React.FC<InjectedFormProps<CreateFormValuesType>> = ({
                 <div className="message__bottom-btn">
                     <button type="submit" className="message__send-btn" >ОТПРАВИТЬ</button>
                     <button type="button" className="message__send-btn message__send-btn--delete" onClick={() => {
-                        debugger
                         <Redirect to={'/mail'} />
                     }}>ОТМЕНА</button>
                 </div>
@@ -100,8 +118,34 @@ export const MessageForm: React.FC<InjectedFormProps<CreateFormValuesType>> = ({
     </div>
     )
 }
+interface YourForm {
+    to: string
+    copy: string
+    hidden: string
+    theme: string
+    upload: HTMLInputElement
+}
+const handleOnFormChange = (newValues: YourForm,
+    dispatch: Dispatch<any>,
+    props: DecoratedFormProps<YourForm, {}, string>,
+    previousValues: YourForm) => {
+    if(props.values?.to){
+        let cancelReq
+        //@ts-ignore
+        clearTimeout(cancelReq)
+        const searchUser = (email: string) => {
+            dispatch(setFoundUserData(email))
+        }
+        cancelReq = setTimeout(() => { props.values && searchUser(props.values.to) }, 500)
+    }
 
-const MessageReduxForm = reduxForm<CreateFormValuesType>({ form: 'message' })(MessageForm)
+}
+// @ts-ignore
+const afterSubmit = (result, dispatch) =>{
+    dispatch(reset('message'))}
+    
+    // @ts-ignore
+const MessageReduxForm = reduxForm<CreateFormValuesType>({ form: 'message', onChange: handleOnFormChange, onSubmitSuccess: afterSubmit })(MessageForm)
 
 export type CreateFormValuesType = {
     to: string
@@ -120,18 +164,19 @@ type NewLabelPropsType = {
 export const Message: React.FC<NewLabelPropsType> = (props) => {
 
     const dispatch = useDispatch()
-
+    const data = useSelector((state: AppStateType) => state.users.data)
     const formData = new FormData()
 
-    const onSubmit = (data: any) => {
-
-        let notify: any = +data.notify
-
-        formData.set("title", data.theme)
-        formData.set("description", data.ckEditor)
+    const onSubmit = (sendFormValues: any) => {
+        const userId = data.find((user: any) => user.email === sendFormValues.to)
+        let notify: any = +sendFormValues.notify
+        
+        debugger
+        formData.set("title", sendFormValues.theme)
+        formData.set("description", sendFormValues.ckEditor)
         formData.set("notify_me", notify)
-        formData.set("receiver_ids[0]", "1")
-        formData.set("files[0]", data.upload)
+        formData.set("receiver_ids[0]", userId.id.toString())
+        formData.set("files[0]", sendFormValues.upload)
 
         dispatch(sendMailGeneral(formData))
 

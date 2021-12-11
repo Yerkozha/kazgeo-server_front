@@ -23,7 +23,9 @@ let initialState = {
     sender:null as null| object,
     title: null as null|string,
     data: [] as null|object[],
-    uniqueMailData: null as any
+    uniqueMailData: null as any,
+
+    selectedMailId: [] as any
 };
 
 
@@ -55,6 +57,21 @@ const mailReducer = (state = initialState, action: ActionsType): InitialStateTyp
                 ...state,
                 uniqueMailData: action.uniqueMailData
             }
+        case 'DL/MAILS/SELECTED_MAIL_ID':
+            return {
+            ...state,
+            selectedMailId: [...state.selectedMailId,action.selectedMailId]
+            }
+        case 'DL/MAILS/CLEAR_SELECTED_MAIL_ID':
+            return {
+                ...state,
+                selectedMailId: []
+            }
+        case 'DL/MAILS/SELECTED_ALL_MAIL_ID':
+            return {
+                ...state,
+                selectedMailId: action.setAllMailId
+            }
         default:
             return state;
     }
@@ -71,8 +88,10 @@ export const actions = {
     setSentMailData: (attachements: object[],created_at: string,description: string,mailId: number,notify_me: string,parent_id: number|null,
         response_type: string|null,sender: object,title: string,updated_at: string) => ({type: 'DL/MAILS/SET_SENT_MAIL',attachements,created_at,description,mailId,notify_me,parent_id,response_type,sender,title,updated_at} as const),
     setGetAllMailResponce: ( data: object[] ) => ({type: 'DL/MAILS/GET_ALL_MAIL',data} as const),
-    setUniqueMailData: ( uniqueMailData: object ) => ({type: 'DL/MAILS/SET_UNIQUE_MAIL',uniqueMailData} as const)
-    
+    setUniqueMailData: ( uniqueMailData: object ) => ({type: 'DL/MAILS/SET_UNIQUE_MAIL',uniqueMailData} as const),
+    setMailId: ( selectedMailId: string ) => ({type: 'DL/MAILS/SELECTED_MAIL_ID',selectedMailId} as const ),
+    setAllMailId: ( setAllMailId: any ) => ({type: 'DL/MAILS/SELECTED_ALL_MAIL_ID',setAllMailId} as const ),
+    clearSelectedMailId: ( ) => ({type: 'DL/MAILS/CLEAR_SELECTED_MAIL_ID'} as const ),
 }
 
 // export const initializeMailData = () => async (dispatch: any) => {
@@ -87,7 +106,7 @@ export const actions = {
 // }
 export const getAllMail = () => async (dispatch: any) => {
    // dispatch(actions.setCurrentPage(pageNumber))
-//    debugger
+   //    debugger
 
     const {data} = await mailAPI.getMail()
     dispatch(actions.setGetAllMailResponce(data))
@@ -129,6 +148,16 @@ export const deleteMail = ( mailId: number ) => (dispatch: any) =>{
     catch{
         message.error("Что-то пошло не так, пожалуйста повторите попытку позже")
     }
+}
+
+export const getOpenedMails = ( mailId: number, openedMailData: object ) => async (dispatch: any) => {
+    const { data } = await mailAPI.getOpenedMails(mailId,openedMailData)
+}
+
+export const setMailIdAndClear = (maild: string,clearSelectedUsers?: any,setAllMails?: Array<any>) => (dispatch: any) => {
+    maild && dispatch( actions.setMailId( maild ))
+    clearSelectedUsers && dispatch(actions.clearSelectedMailId())
+    setAllMails && dispatch(actions.setAllMailId(setAllMails))
 }
 
 export type InitialStateType = typeof initialState

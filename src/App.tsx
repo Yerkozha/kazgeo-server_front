@@ -3,7 +3,7 @@ import './assets/scss/style.scss';
 import './App.scss'
 import { BrowserRouter, Route, withRouter, Switch, Redirect } from "react-router-dom";
 import { useRoutes } from './router/useRoutes';
-import Header from './components/header/Header';
+import {Header} from './components/header/Header';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Preloader from './components/common/Preloader/Preloader';
 import { compose } from 'redux';
@@ -22,8 +22,10 @@ import ProfileContainer from './page/Profile/ProfileContainer';
 import { Message } from './page/Mail/Message/Message';
 import { DocumentFlow } from './page/document-flow/DocumentFlow';
 import { Settings } from './page/Mail/Settings/Settings';
-import { SentMessage } from './page/Mail/SentMessage';
 import { ChosenMessage } from './page/Mail/ChosenMessage';
+import ProtectedRoute from './router/ProtectedRoute';
+import { ReferencesLayout } from './components/layout/ReferencesLayout';
+import ReferencesContainer from './page/References/ReferencesContainer';
 
 
 
@@ -46,21 +48,42 @@ class App extends Component<MapPropsType & DispatchPropsType> {
     if (!this.props.initialized) {
       return <Preloader />
     }
-    
+    const isAuthenticated = localStorage.getItem("api_token");
     return (
       <div className='wrapper'>
-        {!!this.props.id && <Header toggleModal={this.props.toggleModal} isModal={this.props.isModal} userName={this.props.userName}/> }
+        {isAuthenticated && <Header toggleModal={this.props.toggleModal} isModal={this.props.isModal} userName={this.props.userName}/> }
         <div className='main'>
-          <Switch>
+        <Switch>
+            <Route path='/' exact render={() => <Redirect to={'/login'}/> } />
+            <Route path='/login' render={() => <LoginPage />} />
+            
+            <ProtectedRoute path={['/mail/:mailId?','/sent-messages','/chosen-messages']} component={MailContainer} />
+            <ProtectedRoute path='/create-label' toggleModal={this.props.toggleModal} isModal={this.props.isModal} component={NewLabel} />
+            <ProtectedRoute path='/message' toggleModal={this.props.toggleModal} isModal={this.props.isModal} component={Message} />
+            <ProtectedRoute path='/settings' toggleModal={this.props.toggleModal} isModal={this.props.isModal} component={Settings} />
+           
+            <ProtectedRoute path='/references' component={ReferencesContainer} />
+            
+            <ProtectedRoute path='/profile' component={ProfileContainer} />
+
+            <ProtectedRoute path='/my-document' toggleModal={this.props.toggleModal} isModal={this.props.isModal} component={MyDocument} />
+            
+            <Route path='/layout' render={() => <MainLayout />} />
+
+            <ProtectedRoute path='/document-flow' component={DocumentFlow} />
+
+            <Route path='*'
+              render={() => <div>404 NOT FOUND</div>} />
+          </Switch>
+          {/* <Switch>
+            <ProtectedRoute path='/profile' component={ProfileContainer} />
             <Route path='/' exact render={() => <Redirect to={'/login'}/> } />
             <Route path='/mail/:mailId?' render={() => <MailContainer />} />
-            
             <Route path='/my-document' render={() => <MyDocument toggleModal={this.props.toggleModal} isModal={this.props.isModal} />} />
             <Route path='/layout' render={() => <MainLayout />} />
             <Route path='/login' render={() => <LoginPage />} />
             <Route path='/create-label' render={() => <NewLabel toggleModal={this.props.toggleModal} isModal={this.props.isModal} />} />
 
-            <Route path='/profile' render={() => <ProfileContainer />} />
             <Route path='/message' render={() => <Message toggleModal={this.props.toggleModal} isModal={this.props.isModal} />} />
             <Route path='/sent-messages' render={()=> <SentMessage toggleModal={this.props.toggleModal} isModal={this.props.isModal} />} />
             <Route path='/chosen-messages' render={()=> <ChosenMessage toggleModal={this.props.toggleModal} isModal={this.props.isModal} />} />
@@ -69,7 +92,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
 
             <Route path='*'
               render={() => <div>404 NOT FOUND</div>} />
-          </Switch>
+          </Switch> */}
           {/* <Route path='/dialogs'
                            render={() => <DialogsContainer/>}/>
 

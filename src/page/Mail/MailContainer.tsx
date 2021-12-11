@@ -1,20 +1,25 @@
+import { off } from 'process';
 import React from 'react';
 import { connect } from "react-redux";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { compose } from "redux";
+import { mail_label_id } from '../../api/label-api';
 import { MainLayout } from '../../components/layout/MainLayout';
 import { toggleModal } from '../../redux/app-reducer';
-import { getAllMail, getMailById, deleteMail } from '../../redux/mail-reducer';
+import { attachLabel, detachLabel } from '../../redux/label-reducer';
+import { getAllMail, getMailById, deleteMail, getOpenedMails, setMailIdAndClear, getSentMails } from '../../redux/mail-reducer';
 import { AppStateType } from '../../redux/redux';
 import { Mail } from './Mail';
 import { UniqueMail } from './UniqueMail';
-
 type MapPropsType = ReturnType<typeof mapStateToProps>
 type DispatchPropsType = {
     toggleModal: () => void
     getAllMail: () => void
     getMailById: (mailId: number) => void
     deleteMail: (mailId: number) => void
+    getOpenedMails: (mailId: number, openedMailData: object) => void
+    detachLabel: (mail_label_id: mail_label_id) => void
+    getSentMails: (data:string) => void
 }
 
 type PathParamsType = {
@@ -29,35 +34,28 @@ class MailContainer extends React.Component<PropsType> {
     }
 
     updateMail() {
-        let mailId: number | null = +this.props.match.params.mailId;
-        if (!mailId) {
-            const userId = this.props.userId;
-            if (!userId) {
-                // todo: may be replace push with Redirect??
-                this.props.history.push("/login");
-            }
+        if(this.props.match.url === '/mail'){
+            this.props.getAllMail();
         }
-
-        if (!mailId) {
-            console.error("ID should exists in URI params or in state ('authorizedUserId')");
-        } else {
+        else if(this.props.match.url === '/sent-messages'){
+            this.props.getSentMails('?sent_mails=1')
+        }
+        else if(this.props.match.url === `/mail/${parseInt(this.props.match.params.mailId)}`){
+            let mailId: number | null = +this.props.match.params.mailId;
             this.props.getMailById(mailId)
+        }
+        else if(this.props.match.url === '/chosen-messages'){
+            this.props.getSentMails('?is_important=1')
         }
     }
 
     componentDidMount() {
         this.updateMail();
-
-        this.props.getAllMail();
-        // debugger
     }
 
     componentDidUpdate(prevProps: PropsType, prevState: PropsType) {
-        if (this.props.match.params.mailId != prevProps.match.params.mailId) {
+        if (this.props.match.url !== prevProps.match.url) {
             this.updateMail();
-        }
-        if (this.props.data !== prevProps.data) {
-
         }
     }
 
@@ -65,20 +63,25 @@ class MailContainer extends React.Component<PropsType> {
     }
 
     render() {
-
-        if (this.props.match.params.mailId) {
-            return (
-                <MainLayout {...this.props}>
-                    <UniqueMail uniqueMailData={this.props.uniqueMailData} deleteMail={this.props.deleteMail} />
-                </MainLayout>
-            )
-        }
-        else {
-            return (
-                <MainLayout {...this.props}>
-                    <Mail toggleModal={this.props.toggleModal} isModal={this.props.isModal} data={this.props.data} />
-                </MainLayout>
-            )
+        switch(this.props.match.url){
+            case `/mail/${parseInt(this.props.match.params.mailId)}`:
+                return (
+                    <MainLayout {...this.props}>
+                        <UniqueMail uniqueMailData={this.props.uniqueMailData} deleteMail={this.props.deleteMail} mailId={this.props.match.params.mailId} detachLabel={this.props.detachLabel} />
+                    </MainLayout>
+                )
+            default:
+                return (
+                    <MainLayout {...this.props}>
+                        <Mail url={this.props.match.url} {...this.props} toggleModal={this.props.toggleModal} isModal={this.props.isModal} data={this.props.data} />
+                    </MainLayout>
+                )
+            // case `/sent-messages`:
+            //     return (
+            //         <MainLayout {...this.props}>
+            //             <Mail {...this.props} toggleModal={this.props.toggleModal} isModal={this.props.isModal} data={this.props.data} />
+            //         </MainLayout>
+            //     )
         }
     }
 }
@@ -97,13 +100,17 @@ let mapStateToProps = (state: AppStateType) => {
 
         data: state.mail.data,
         uniqueMailData: state.mail.uniqueMailData,
-
+        
         isModal: state.app.isModal,
-        userId: state.auth.id
+        userId: state.auth.id,
+
+        pickLabels: state.label.labels
     })
 }
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, { toggleModal, getAllMail, getMailById, deleteMail }),
+    connect(mapStateToProps, { toggleModal, getAllMail, getMailById, deleteMail,
+                               getOpenedMails, attachLabel, setMailIdAndClear, detachLabel,
+                               getSentMails }),
     withRouter
 )(MailContainer);
 

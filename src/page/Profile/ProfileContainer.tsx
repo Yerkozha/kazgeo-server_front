@@ -23,9 +23,11 @@ class ProfileContainer extends React.Component<PropsType> {
 
     refreshProfile() {
         let userId: number | null = +this.props.match.params.userId;
+        const isAuthenticated = localStorage.getItem("api_token");
         if (!userId) {
             userId = this.props.authorizedUserId;
-            if (!userId) {
+            
+            if (!isAuthenticated) {
                 // todo: may be replace push with Redirect??
                 this.props.history.push("/login");
             }

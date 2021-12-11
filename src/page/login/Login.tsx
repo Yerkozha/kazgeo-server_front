@@ -43,8 +43,8 @@ export const LoginPage: React.FC = () => {
         
         dispatch(login(formData.email, formData.password))
     }
-
-    if (!!id) {
+    const isAuthenticated = localStorage.getItem('api_token')
+    if (isAuthenticated) {
         return <Redirect to={'/profile'}/>
     }
 
