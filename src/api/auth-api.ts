@@ -33,6 +33,6 @@ export const authAPI = {
         return instance.post<APIResponseType<LoginResponseDataType>>(`login`, {email, password}).then(res => res.data)
     },
     me(){
-        return instance.get<APIResponseType<AuthResponceDataType>>(`users`,config).then(res => res.data)
+        return instance.get<any>(`users`,config).then(res => res.data)
     }
 }

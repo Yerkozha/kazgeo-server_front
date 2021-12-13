@@ -4,10 +4,11 @@ import {connect} from "react-redux";
 import {withRouter, RouteComponentProps} from "react-router-dom";
 import {compose} from "redux";
 import {AppStateType} from '../../redux/redux';
+import { getAuthUserData } from '../../redux/auth-reducer'
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
 type DispatchPropsType = {
-    
+    getAuthUserData: () => void
 }
 
 type PathParamsType = {
@@ -24,6 +25,7 @@ class ProfileContainer extends React.Component<PropsType> {
     refreshProfile() {
         let userId: number | null = +this.props.match.params.userId;
         const isAuthenticated = localStorage.getItem("api_token");
+        this.props.getAuthUserData()
         if (!userId) {
             userId = this.props.authorizedUserId;
             
@@ -70,7 +72,7 @@ let mapStateToProps = (state: AppStateType) => {
 }
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {}),
+    connect(mapStateToProps, {getAuthUserData}),
     withRouter
 )(ProfileContainer);
 

@@ -72,10 +72,24 @@ type MailSendDataType = {
     title: string
     updated_at: string
 }
+type getMailDataType = {
+    current_page: number
+    data: Array<object>
+    first_page_url: string
+    from: number 
+    last_page: number
+    last_page_url: string
+    next_page_url: string
+    path: string
+    per_page: number
+    prev_page_url: null|string
+    to: number
+    total:number
+}
 
 export const mailAPI = {
     getMail(sentMail?: string) {
-        return instance.get<APIResponseType<any>>('v1/mails' + (sentMail ?? ''),config).then(res => res.data)
+        return instance.get<any>('v1/mails' + (sentMail ?? ''),config).then(res => res.data)
     },
     sendMail(files: any){
         return instance.post<APIResponseType<MailSendDataType>>(`v1/mails/send`,files,configFormData).then(res => res.data)

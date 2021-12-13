@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { LayoutMail } from '../../components/layout/LayoutMail'
 import { MainLayout } from '../../components/layout/MainLayout'
 import { getSentMails } from '../../redux/mail-reducer'
 import { AppStateType } from '../../redux/redux'
@@ -18,8 +19,8 @@ export const ChosenMessage: React.FC<PropsType>  = (props) => {
         
     }, [])
 
-    return (<MainLayout {...props}>
+    return (<LayoutMail {...props}>
             <Mail data={data} />
-    </MainLayout>
+    </LayoutMail>
     )
 }

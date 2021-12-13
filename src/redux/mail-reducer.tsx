@@ -25,7 +25,9 @@ let initialState = {
     data: [] as null|object[],
     uniqueMailData: null as any,
 
-    selectedMailId: [] as any
+    selectedMailId: [] as any,
+
+    total: null as number|null
 };
 
 
@@ -72,12 +74,18 @@ const mailReducer = (state = initialState, action: ActionsType): InitialStateTyp
                 ...state,
                 selectedMailId: action.setAllMailId
             }
+        case 'DL/MAILS/SET_TOTAL_MAILS_COUNT':
+            return {
+                ...state,
+                total: action.total
+            }
         default:
             return state;
     }
 }
 
 export const actions = {
+    setTotalCountMail: ( total: number ) => ({type: 'DL/MAILS/SET_TOTAL_MAILS_COUNT', total} as const),
     setMailData: (id: number, mail: object, labels: Array<string>, attachments: Array<object>, is_opened: number, is_important: number,
         send_as: any, created_at: any, updated_at: any) => ({
             type: 'DL/MAILS/SET_MAIL', payload: {
@@ -107,14 +115,15 @@ export const actions = {
 export const getAllMail = () => async (dispatch: any) => {
    // dispatch(actions.setCurrentPage(pageNumber))
    //    debugger
-
-    const {data} = await mailAPI.getMail()
-    dispatch(actions.setGetAllMailResponce(data))
+    const data = await mailAPI.getMail('?perPage=10')
+    debugger
+    dispatch(actions.setTotalCountMail(data.total))
+    dispatch(actions.setGetAllMailResponce(data.data))
 }
 
 export const getSentMails = (url: string) => async (dispatch: any) => {
-    const {data} =await mailAPI.getMail(url)
-    dispatch(actions.setGetAllMailResponce(data))
+    const data =await mailAPI.getMail(url)
+    dispatch(actions.setGetAllMailResponce(data.data))
 }
 
 export const sendMailGeneral = (files: any) => async (dispatch: any) => {
@@ -138,9 +147,10 @@ export const getMailById = ( mailId: number ) => async (dispatch: any) =>{
 
 export const deleteMail = ( mailId: number ) => (dispatch: any) =>{
     try{
-    mailAPI.deleteMail(mailId).then(()=>{
+    return mailAPI.deleteMail(mailId).then(()=>{
         message.success('Сообщение успешно удалено')
         dispatch(getAllMail())
+        
     }).catch((error)=>{
         message.error("Что-то пошло не так, пожалуйста повторите попытку позже")
     })

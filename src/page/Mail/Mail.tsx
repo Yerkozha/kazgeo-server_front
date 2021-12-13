@@ -28,7 +28,6 @@ export const Mail = (props: any) => {
        
     }
     const filterMail = (item: any,url: string) => {
-        debugger
         switch(url){
             case '/sent-messages':
                 return item.receiver && item.receiver.name

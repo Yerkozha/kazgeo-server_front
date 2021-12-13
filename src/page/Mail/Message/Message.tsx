@@ -13,6 +13,7 @@ import Download from '../../../assets/image/icon/download.png'
 import { Redirect } from 'react-router'
 import { AppStateType } from '../../../redux/redux'
 import { setFoundUserData } from '../../../redux/users-reducer'
+import { LayoutMail } from '../../../components/layout/LayoutMail'
 
 export const MessageForm: React.FC<InjectedFormProps<CreateFormValuesType>> = ({ handleSubmit, error }) => {
     const [toggleMessageCopy, setToggleMessageCopy] = useState({
@@ -28,7 +29,9 @@ export const MessageForm: React.FC<InjectedFormProps<CreateFormValuesType>> = ({
     let typingEmail = useSelector((state: AppStateType) => state.users.typingEmail)
     const data = useSelector((state: AppStateType) => state.users.data)
     data && data.map((item: any) => {
-        usersEmail.push(item.email)
+        if(!item.deleted_at){
+            usersEmail.push(item.email)
+        }
     })
     const foundUsersName = usersEmail.filter(email => {
         return email.startsWith(typingEmail)
@@ -168,22 +171,23 @@ export const Message: React.FC<NewLabelPropsType> = (props) => {
     const formData = new FormData()
 
     const onSubmit = (sendFormValues: any) => {
-        const userId = data.find((user: any) => user.email === sendFormValues.to)
-        let notify: any = +sendFormValues.notify
-        
-        debugger
+        const userId = data.find((user: any) => {
+            return user.email === sendFormValues.to})
+        let notify: any =  sendFormValues.notify ?? 0
+        if(notify === false) notify = +notify
+        else if(notify === true) notify = +notify
         formData.set("title", sendFormValues.theme)
         formData.set("description", sendFormValues.ckEditor)
         formData.set("notify_me", notify)
-        formData.set("receiver_ids[0]", userId.id.toString())
+        formData.set("receiver_ids[0]", userId.id)
         formData.set("files[0]", sendFormValues.upload)
 
         dispatch(sendMailGeneral(formData))
 
     }
-    return (<MainLayout isModal={props.isModal} toggleModal={props.toggleModal} sendMail='ОТПРАВИТЬ' formData={formData} cancelMail='ОТМЕНИТЬ' >
+    return (<LayoutMail isModal={props.isModal} toggleModal={props.toggleModal} sendMail='ОТПРАВИТЬ' formData={formData} cancelMail='ОТМЕНИТЬ' >
         <div className="message__presentation">
             <MessageReduxForm onSubmit={onSubmit} />
         </div>
-    </MainLayout>)
+    </LayoutMail>)
 }

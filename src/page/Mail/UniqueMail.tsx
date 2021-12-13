@@ -8,11 +8,12 @@ import Arrow from '../../assets/image/icon/caret_down.png'
 import { useSelector } from 'react-redux'
 import { Tag } from 'antd'
 import { LabelResponceDataType, mail_label_id } from '../../api/label-api'
+import { useHistory } from 'react-router-dom'
 
 type UniqueMailPropsType = {
     detachLabel: (mail_label_id: mail_label_id) => void
     uniqueMailData: MailResponceDataType
-    deleteMail: (mailId: number) => void
+    deleteMail: (mailId: number) => any
     mailId: string
 }
 
@@ -26,6 +27,8 @@ export const UniqueMail: React.FC<UniqueMailPropsType> = (props) => {
     })
     const ownerName = useSelector((state: AppStateType) => state.auth.name)
     const ownerLastname = useSelector((state: AppStateType) => state.auth.lastname)
+
+    const history = useHistory()
 
     const onDetachLabel = (e:any) => {
         props.detachLabel({  "mail_id": parseInt(props.mailId),
@@ -101,7 +104,9 @@ export const UniqueMail: React.FC<UniqueMailPropsType> = (props) => {
                     <button className="unique-mail__options-btn">СОЗДАТЬ СОБЫТИЕ</button>
                 </li>
             </ul>
-            <button className="unique-mail__options-delete" onClick={() => props.deleteMail(props.uniqueMailData.id)}>
+            <button className="unique-mail__options-delete" onClick={() => {
+                props.deleteMail(props.uniqueMailData.id).then(() => history.push('/mail'))
+                }}>
                 УДАЛИТЬ
             </button>
         </div>

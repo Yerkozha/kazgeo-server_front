@@ -62,19 +62,14 @@ export const login = (email: string, password: string) => async (dispatch:any) =
     configFormData.headers.Authorization = `Bearer ${data.api_token}`
     localStorage.setItem('api_token',data.api_token)
 
-    if(!!data){
+    dispatch(getAuthUserData())
+    dispatch(actions.setLoginUserData(data.id,data.name,data.lastname,data.roles,data.is_admin))
 
-        dispatch(getAuthUserData())
-        dispatch(actions.setLoginUserData(data.id,data.name,data.lastname,data.roles,data.is_admin))
-
-    }
-        //dispatch(stopSubmit("login", {_error: "Error"}));
+    //dispatch(stopSubmit("login", {_error: "Error"}));
 }
 export const getAuthUserData = () => async (dispatch:any) => {
     let {data} = await authAPI.me()
-    if (!!data.id) {
-        dispatch(actions.setAuthUserData(data.id, data.name, data.phone, data.lastname,data.initials,data.trashed, data.roles,data.position_id,data.position,data.active,data.cases,data.employment_date,data.experience,data.vacation_days,data.vacation_days_rest,data.attachments))
-    }
+    //dispatch(actions.setAuthUserData(data.id, data.name, data.phone, data.lastname,data.initials,data.trashed, data.roles,data.position_id,data.position,data.active,data.cases,data.employment_date,data.experience,data.vacation_days,data.vacation_days_rest,data.attachments))
 }
 export default authReducer;
 export type InitialStateType = typeof initialState;

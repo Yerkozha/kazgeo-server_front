@@ -4,6 +4,7 @@ import { createField, GetStringKeys, Input } from '../../../components/common/Fo
 import { MainLayout } from '../../../components/layout/MainLayout'
 import Close from '../../../assets/image/icon/close_small.png'
 import { required } from '../../../utils/validators/validators'
+import { LayoutMail } from '../../../components/layout/LayoutMail'
 
 const SettingsForm: React.FC<InjectedFormProps<CreateFormValuesType>> = ({ handleSubmit, error }) => {
     return (<form className="settings__form" onSubmit={handleSubmit}>
@@ -67,9 +68,9 @@ export const Settings: React.FC<SettingsPropsType> = (props) => {
         
     }
     return (<div className='settings'>
-        <MainLayout isModal={props.isModal} toggleModal={props.toggleModal}>
+        <LayoutMail isModal={props.isModal} toggleModal={props.toggleModal}>
             <SettingsReduxForm onSubmit={onSubmit} />
-        </MainLayout>
+        </LayoutMail>
     </div>
     )
 }

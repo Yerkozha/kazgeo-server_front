@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { compose } from "redux";
 import { mail_label_id } from '../../api/label-api';
+import { LayoutMail } from '../../components/layout/LayoutMail';
 import { MainLayout } from '../../components/layout/MainLayout';
 import { toggleModal } from '../../redux/app-reducer';
 import { attachLabel, detachLabel } from '../../redux/label-reducer';
@@ -11,7 +12,9 @@ import { getAllMail, getMailById, deleteMail, getOpenedMails, setMailIdAndClear,
 import { AppStateType } from '../../redux/redux';
 import { Mail } from './Mail';
 import { UniqueMail } from './UniqueMail';
+
 type MapPropsType = ReturnType<typeof mapStateToProps>
+
 type DispatchPropsType = {
     toggleModal: () => void
     getAllMail: () => void
@@ -66,15 +69,17 @@ class MailContainer extends React.Component<PropsType> {
         switch(this.props.match.url){
             case `/mail/${parseInt(this.props.match.params.mailId)}`:
                 return (
-                    <MainLayout {...this.props}>
+                    <LayoutMail {...this.props}>
                         <UniqueMail uniqueMailData={this.props.uniqueMailData} deleteMail={this.props.deleteMail} mailId={this.props.match.params.mailId} detachLabel={this.props.detachLabel} />
-                    </MainLayout>
+                    </LayoutMail>
                 )
             default:
                 return (
-                    <MainLayout {...this.props}>
+                    <LayoutMail {...this.props}>
                         <Mail url={this.props.match.url} {...this.props} toggleModal={this.props.toggleModal} isModal={this.props.isModal} data={this.props.data} />
-                    </MainLayout>
+                    </LayoutMail>
+                //<MainLayout {...this.props}>
+                  //  </MainLayout>
                 )
             // case `/sent-messages`:
             //     return (

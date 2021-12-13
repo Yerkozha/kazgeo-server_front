@@ -176,7 +176,7 @@
         display: flex;
         justify-content: space-between;
         width: 320px;
-        margin: 10px 50px 10px 0;
+        margin: 10px 40px 10px 0;
         align-items: center;
         padding: 6px;
         border-radius: 2px;
@@ -404,7 +404,7 @@
         @extend %input__mail;
     }
     &__form-to--modify input {
-        width: 88vw;
+        width: 71vw;
         @extend %input__mail;
     }
     &__form-to input:focus {
@@ -819,4 +819,16 @@
   }
   .ant-dropdown-menu-item-group-list {
     margin: 0;
+  }
+
+  .mail__toolbar{
+      display: flex;
+      justify-content: space-between;
+  }
+  .mail__toolbar-items{
+     
+  }
+  .incoming__mail-title{
+      display: flex;
+      justify-content: space-between;
   }
