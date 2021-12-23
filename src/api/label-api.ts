@@ -1,10 +1,13 @@
 import {instance, APIResponseType,config} from "./api";
 
 export type LabelResponceDataType = {
-    labelId?        : number|undefined
+    id              : number
     name            : string,
     display_message : number,
     color           : string
+    user_id         : number
+    created_at      : string
+    updated_at      : string
 }
 
 // type LabelUpdateDataType = {
@@ -21,15 +24,11 @@ export type LabelResponceDataType = {
 // }
 
 export const labelAPI = {
-    createLabel(name:string,display_message:number,color:string|null){
-        return instance.post<APIResponseType<LabelResponceDataType>>('v1/labels',{
-            'name'           : name,
-            'display_message': display_message,
-            'color'          : color
-        },config).then( res => res.data)
+    createLabel(labels:any){
+        return instance.post<APIResponseType<LabelResponceDataType>>('v1/labels',labels,config)
     },
     updateLabel(labelId: number,name: string, color: string){
-        return instance.put<APIResponseType<LabelResponceDataType>>(`v1/labels/${labelId}`,{
+        return instance.put<APIResponseType<any>>(`v1/labels/${labelId}`,{
             'name'  : name,
             'color' : color
         },config).then( res => res.data)
@@ -46,7 +45,7 @@ export const labelAPI = {
     },
     detachLabel( mail_label_id: mail_label_id ){
       //  config.data = mail_label_id
-        return instance.delete(`v1/mails/labels?mail_id=${mail_label_id.mail_id}&label_id=${mail_label_id.label_id}`,config)
+        return instance.delete(`v1/mails/label?mail_id=${mail_label_id.mail_id}&label_id=${mail_label_id.label_id}`,config)
     }
 }
 

@@ -1,14 +1,14 @@
-$hover-color: #EDF1F7;
-$accent-color: #5D5FEF;
+$hover-color: #edf1f7;
+$accent-color: #5d5fef;
 .select {
   width: 542px;
-  background: #FFFFFF;
-  border: 0.5px solid #C5CEE0;
+  background: #ffffff;
+  border: 0.5px solid #c5cee0;
   box-shadow: 0px 7px 64px rgba(25, 32, 56, 0.07);
   border-radius: 3px;
   padding: 11px 44px 12px 16px;
   outline: none;
-  transition: all .1s ease;
+  transition: all 0.1s ease;
   -webkit-appearance: none;
   -moz-appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cmask id='mask0_9_2120' style='mask-type:alpha' maskUnits='userSpaceOnUse' x='0' y='0' width='24' height='24'%3E%3Crect width='24' height='24' fill='white'/%3E%3C/mask%3E%3Cg mask='url(%23mask0_9_2120)'%3E%3Cpath d='M11.9995 14.5L16.9995 9.5L6.99951 9.5L11.9995 14.5Z' fill='%232E3A59'/%3E%3C/g%3E%3C/svg%3E%0A");
@@ -33,7 +33,7 @@ $accent-color: #5D5FEF;
   overflow: hidden;
 }
 .sidebar__header {
-  border-bottom: 1px solid #C5CEE0;
+  border-bottom: 1px solid #c5cee0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -43,7 +43,7 @@ $accent-color: #5D5FEF;
     font-weight: 500;
     font-size: 15px;
     line-height: 20px;
-    color: #2E3A59;
+    color: #2e3a59;
   }
   &__buttons {
     display: flex;
@@ -76,11 +76,11 @@ $accent-color: #5D5FEF;
       font-weight: 600;
       font-size: 15px;
       line-height: 20px;
-      color: #2E3A59;
+      color: #2e3a59;
     }
     .ant-tree-node-selected {
-      background: none!important;
-      .ant-tree-title{
+      background: none !important;
+      .ant-tree-title {
         color: $accent-color;
       }
     }
@@ -88,7 +88,7 @@ $accent-color: #5D5FEF;
 }
 
 .content__documentflow {
-  background: #EDF1F7;
+  background: #edf1f7;
   overflow: scroll;
 }
 
@@ -126,7 +126,7 @@ $accent-color: #5D5FEF;
     input {
       width: 100%;
       padding: 8px 42px;
-      border: 1px solid #E4E9F2;
+      border: 1px solid #e4e9f2;
       box-sizing: border-box;
       border-radius: 3px;
       background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cmask id='mask0_1_16318' style='mask-type:alpha' maskUnits='userSpaceOnUse' x='0' y='0' width='20' height='20'%3E%3Crect width='20' height='20' fill='white'/%3E%3C/mask%3E%3Cg mask='url(%23mask0_1_16318)'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M11.9802 10.3974C13.3718 8.44472 13.1917 5.71632 11.4398 3.96447C9.48721 2.01184 6.32138 2.01184 4.36876 3.96447C2.41614 5.91709 2.41614 9.08291 4.36876 11.0355C6.12062 12.7874 8.84902 12.9675 10.8017 11.5759L15.5646 16.3388L16.7431 15.1603L11.9802 10.3974C11.9802 10.3974 13.3718 8.44472 11.9802 10.3974ZM10.2613 5.14298C11.5631 6.44472 11.5631 8.55527 10.2613 9.85702C8.95957 11.1588 6.84902 11.1588 5.54727 9.85702C4.24553 8.55527 4.24553 6.44472 5.54727 5.14298C6.84902 3.84123 8.95957 3.84123 10.2613 5.14298C10.2613 5.14298 11.5631 6.44472 10.2613 5.14298Z' fill='%232E3A59' fill-opacity='0.3'/%3E%3C/g%3E%3C/svg%3E%0A");
@@ -162,16 +162,16 @@ th.ant-table-cell {
   font-weight: 500;
   font-size: 13px;
   line-height: 16px;
-  color: rgba(33, 37, 41, 0.5)!important;
-  background: #fff!important;
+  color: rgba(33, 37, 41, 0.5) !important;
+  background: #fff !important;
 }
 .ant-table-cell::before {
   display: none;
 }
 
 .filter-body {
-  background: #FFFFFF;
-  border: 1px solid #DDE4EB;
+  background: #ffffff;
+  border: 1px solid #dde4eb;
   box-sizing: border-box;
   box-shadow: 0px 0px 20px rgba(90, 113, 208, 0.2);
   border-radius: 3px;
@@ -195,13 +195,13 @@ th.ant-table-cell {
     color: #21252980;
   }
   .filter__input {
-    background: #FFFFFF;
-    border: 0.5px solid #C5CEE0;
+    background: #ffffff;
+    border: 0.5px solid #c5cee0;
     box-shadow: 0px 7px 64px rgba(25, 32, 56, 0.07);
     border-radius: 3px;
     padding: 11px 16px 12px 16px;
     outline: none;
-    transition: all .1s ease;
+    transition: all 0.1s ease;
     &:focus {
       border: 0.5px solid $accent-color;
     }
@@ -209,7 +209,7 @@ th.ant-table-cell {
 }
 .filter__warning-input {
   padding: 10px 16px;
-  background: #F6E9A5;
+  background: #f6e9a5;
   border-radius: 3px;
   display: grid;
   row-gap: 6px;
@@ -242,13 +242,13 @@ th.ant-table-cell {
       color: rgba(33, 37, 41, 0.5);
     }
     &__table {
-      background: #FFFFFF;
-      border: 0.5px solid #C5CEE0;
+      background: #ffffff;
+      border: 0.5px solid #c5cee0;
       box-shadow: 0px 7px 64px rgba(25, 32, 56, 0.07);
       &__name {
         padding: 6px;
         text-align: center;
-        background: #EDF1F7;
+        background: #edf1f7;
         box-shadow: 0px 7px 64px rgba(25, 32, 56, 0.07);
       }
     }
@@ -261,18 +261,18 @@ th.ant-table-cell {
   display: grid;
   row-gap: 12px;
   &__name {
-    color: #222B45;
+    color: #222b45;
     font-size: 15px;
     line-height: 18px;
   }
   &__button {
     width: fit-content;
     padding: 10px 25px 12px 53px;
-    background: #FFFFFF;
+    background: #ffffff;
     border: 0.5px solid #212529;
     box-shadow: 0px 7px 64px rgba(25, 32, 56, 0.07);
     border-radius: 3px;
-    color: #2E3A59;
+    color: #2e3a59;
     font-weight: 500;
     font-size: 13px;
     line-height: 18px;
@@ -288,18 +288,36 @@ th.ant-table-cell {
   .save {
     padding: 10px 20px;
     color: rgba(255, 255, 255, 0.8);
-    background: #222B45;
+    background: #222b45;
     border-radius: 3px;
   }
 }
 
-.ant-layout-sider{
-  background: #FFFFFF;
-box-shadow: 0px 4px 10px rgba(34, 43, 69, 0.1);
+.ant-layout-sider {
+  background: #ffffff;
+  box-shadow: 0px 4px 10px rgba(34, 43, 69, 0.1);
 }
-.references__title{
-  font-family: 'SF Pro Display Regular';
-font-style: normal;
-font-weight: 500;
-
+.references__title {
+  font-family: "SF Pro Display Regular";
+  font-style: normal;
+  font-weight: 500;
+}
+@mixin font-sf-pro {
+  font-family: "SF Pro Display Regular";
+  line-height: 20px;
+}
+.filter {
+  &__by-date {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__date {
+    font-size: 13px;
+    color: rgba(46, 58, 89, 0.5);
+    @include font-sf-pro
+  }
+  &__date-title {
+    font-size: 15px;
+    @include font-sf-pro
+  }
 }

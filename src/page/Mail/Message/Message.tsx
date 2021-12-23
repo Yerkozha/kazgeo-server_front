@@ -5,7 +5,7 @@ import { MainLayout } from '../../../components/layout/MainLayout'
 import { required } from '../../../utils/validators/validators'
 import ReactHtmlParser from 'react-html-parser'
 import { useDispatch, useSelector } from 'react-redux'
-import { sendMailGeneral } from '../../../redux/mail-reducer'
+import { sendMailGeneral, setFileMessage } from '../../../redux/mail-reducer'
 import '../../Main.scss'
 import MailIcon from '../../../assets/image/icon/send-mail.png'
 import UserIcon from '../../../assets/image/icon/user_circle.png'
@@ -26,17 +26,19 @@ export const MessageForm: React.FC<InjectedFormProps<CreateFormValuesType>> = ({
     const usersEmail: Array<string> = []
     const isModal = useSelector((state: AppStateType) => state.app.isModal)
     // const usersEmail = useSelector((state: AppStateType) => state.users.usersEmail)
-    let typingEmail = useSelector((state: AppStateType) => state.users.typingEmail)
-    const data = useSelector((state: AppStateType) => state.users.data)
+   // let typingEmail = useSelector((state: AppStateType) => state.users.typingEmail)
+    const [data,typingEmail] = useSelector((state: AppStateType) => [state.users.data,state.users.typingEmail])
+    const file = useSelector((state: AppStateType) => state.mail.file)
+    console.log(file)
     data && data.map((item: any) => {
-        if(!item.deleted_at){
+        if (!item.deleted_at) {
             usersEmail.push(item.email)
         }
     })
     const foundUsersName = usersEmail.filter(email => {
         return email.startsWith(typingEmail)
     })
-    
+
     return (<div className="message">
         <div className="message__inner">
             <h1 className="message__title">
@@ -48,17 +50,17 @@ export const MessageForm: React.FC<InjectedFormProps<CreateFormValuesType>> = ({
                         Кому:
                     </h1>
                     <div className="message__to-container">
-                        {createField<CreateMessageFormValuesTypeKeys>('Выберите', 'to', [required], Input,{list: 'toId'})}
+                        {createField<CreateMessageFormValuesTypeKeys>('Выберите', 'to', [required], Input, { list: 'toId' })}
                         <datalist id="toId">
-                            {foundUsersName.map( item => <option value={item} />)}
+                            {foundUsersName.map(item => <option value={item} />)}
                         </datalist>
                         <img src={MailIcon} alt="MailIcon" className="message__to-icon" />
                         <img src={UserIcon} alt="MailIcon" className="message__to-icon" />
                     </div>
                     <ul className="message__users">
-                    {/* {foundUsersName && foundUsersName.map( item => <li className='message__users-found'>{item}</li>)} */}
+                        {/* {foundUsersName && foundUsersName.map( item => <li className='message__users-found'>{item}</li>)} */}
                     </ul>
-                   
+
                 </div>
                 {toggleMessageCopy.copy_btn_hidden && <button className="message__copy-btn" onClick={() => {
                     setToggleMessageCopy((s) => ({
@@ -132,7 +134,8 @@ const handleOnFormChange = (newValues: YourForm,
     dispatch: Dispatch<any>,
     props: DecoratedFormProps<YourForm, {}, string>,
     previousValues: YourForm) => {
-    if(props.values?.to){
+    newValues.upload && dispatch(setFileMessage(newValues.upload.name))
+    if (props.values?.to) {
         let cancelReq
         //@ts-ignore
         clearTimeout(cancelReq)
@@ -144,10 +147,11 @@ const handleOnFormChange = (newValues: YourForm,
 
 }
 // @ts-ignore
-const afterSubmit = (result, dispatch) =>{
-    dispatch(reset('message'))}
-    
-    // @ts-ignore
+const afterSubmit = (result, dispatch) => {
+    dispatch(reset('message'))
+}
+
+// @ts-ignore
 const MessageReduxForm = reduxForm<CreateFormValuesType>({ form: 'message', onChange: handleOnFormChange, onSubmitSuccess: afterSubmit })(MessageForm)
 
 export type CreateFormValuesType = {
@@ -163,6 +167,7 @@ type CreateMessageFormValuesTypeKeys = GetStringKeys<CreateFormValuesType>
 type NewLabelPropsType = {
     toggleModal: () => void
     isModal: boolean
+    match: any
 }
 export const Message: React.FC<NewLabelPropsType> = (props) => {
 
@@ -172,10 +177,11 @@ export const Message: React.FC<NewLabelPropsType> = (props) => {
 
     const onSubmit = (sendFormValues: any) => {
         const userId = data.find((user: any) => {
-            return user.email === sendFormValues.to})
-        let notify: any =  sendFormValues.notify ?? 0
-        if(notify === false) notify = +notify
-        else if(notify === true) notify = +notify
+            return user.email === sendFormValues.to
+        })
+        let notify: any = sendFormValues.notify ?? 0
+        if (notify === false) notify = +notify
+        else if (notify === true) notify = +notify
         formData.set("title", sendFormValues.theme)
         formData.set("description", sendFormValues.ckEditor)
         formData.set("notify_me", notify)
@@ -185,7 +191,7 @@ export const Message: React.FC<NewLabelPropsType> = (props) => {
         dispatch(sendMailGeneral(formData))
 
     }
-    return (<LayoutMail isModal={props.isModal} toggleModal={props.toggleModal} sendMail='ОТПРАВИТЬ' formData={formData} cancelMail='ОТМЕНИТЬ' >
+    return (<LayoutMail match={props.match} sendMail='ОТПРАВИТЬ' formData={formData} cancelMail='ОТМЕНИТЬ' >
         <div className="message__presentation">
             <MessageReduxForm onSubmit={onSubmit} />
         </div>

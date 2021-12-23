@@ -27,7 +27,8 @@ let initialState = {
 
     selectedMailId: [] as any,
 
-    total: null as number|null
+    total: null as number|null,
+    file: null as any
 };
 
 
@@ -100,6 +101,8 @@ export const actions = {
     setMailId: ( selectedMailId: string ) => ({type: 'DL/MAILS/SELECTED_MAIL_ID',selectedMailId} as const ),
     setAllMailId: ( setAllMailId: any ) => ({type: 'DL/MAILS/SELECTED_ALL_MAIL_ID',setAllMailId} as const ),
     clearSelectedMailId: ( ) => ({type: 'DL/MAILS/CLEAR_SELECTED_MAIL_ID'} as const ),
+
+    setMessageFile: (file: any) => ({type: 'DL/MAILS/MESSAGE/FILE_DATA', file} as const)
 }
 
 // export const initializeMailData = () => async (dispatch: any) => {
@@ -112,6 +115,7 @@ export const actions = {
 //     //         dispatch(actions.initializedSuccess());
 //     //     });
 // }
+
 export const getAllMail = () => async (dispatch: any) => {
    // dispatch(actions.setCurrentPage(pageNumber))
    //    debugger
@@ -122,8 +126,13 @@ export const getAllMail = () => async (dispatch: any) => {
 }
 
 export const getSentMails = (url: string) => async (dispatch: any) => {
-    const data =await mailAPI.getMail(url)
-    dispatch(actions.setGetAllMailResponce(data.data))
+    const data = await mailAPI.getMail(url)
+    if('?is_important=1' === url || '?is_deleted=1&perPage=10' === url){
+        dispatch(actions.setGetAllMailResponce(data.data))
+    }
+    else{
+        dispatch(actions.setGetAllMailResponce(data.mails.data))
+    }
 }
 
 export const sendMailGeneral = (files: any) => async (dispatch: any) => {
@@ -160,14 +169,17 @@ export const deleteMail = ( mailId: number ) => (dispatch: any) =>{
     }
 }
 
-export const getOpenedMails = ( mailId: number, openedMailData: object ) => async (dispatch: any) => {
-    const { data } = await mailAPI.getOpenedMails(mailId,openedMailData)
+export const getOpenedMails = ( mailId: number, openedMailData: object ) => (dispatch: any) => {
+    return mailAPI.getOpenedMails(mailId,openedMailData)
 }
 
 export const setMailIdAndClear = (maild: string,clearSelectedUsers?: any,setAllMails?: Array<any>) => (dispatch: any) => {
     maild && dispatch( actions.setMailId( maild ))
     clearSelectedUsers && dispatch(actions.clearSelectedMailId())
     setAllMails && dispatch(actions.setAllMailId(setAllMails))
+}
+export const setFileMessage = (file: any) => (dispatch: any) => {
+    dispatch(actions.setMessageFile(file))
 }
 
 export type InitialStateType = typeof initialState

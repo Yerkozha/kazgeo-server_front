@@ -44,6 +44,7 @@ export const LayoutMail = (props: any) => {
                 <Menu mode="inline" defaultSelectedKeys={['1']} >
                         <Menu.Item key="1" icon={isModal && <MailOutlined />} onClick={() => {
                             dispatch(toggleModal(!isModal))
+                            // history.push('/mail')
                         }}>
                     <div className="mail__toolbar">
                             Почта
@@ -85,7 +86,7 @@ export const LayoutMail = (props: any) => {
                         </Link>
                     </Menu.Item>
                     <Menu.Item key="6" icon={<DeleteOutlined />}>
-                        <Link to='/'>
+                        <Link to='/trash-mails'>
                             Корзины
                         </Link>
                     </Menu.Item>
@@ -111,7 +112,7 @@ export const LayoutMail = (props: any) => {
                         minHeight: '100vh'
                     }}
                 >
-                    <Search data={props.data} sendMail={props.sendMail} formData={props.formData} cancelMail={props.cancelMail} attachLabel={props.attachLabel} pickLabels={props.pickLabels} />
+                    <Search url={props.match.url} data={props.data} sendMail={props.sendMail} formData={props.formData} cancelMail={props.cancelMail} attachLabel={props.attachLabel} pickLabels={props.pickLabels} />
                     {props.children}
                 </Content>
             </Layout>

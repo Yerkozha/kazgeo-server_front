@@ -46,7 +46,6 @@ const Search: React.FC<any> = (props) => {
             const selectAllMailData = props.data.map((el: any) => el.id)
             dispatch(setMailIdAndClear('', '', selectAllMailData))
             const len = document.querySelectorAll("[id='selected_users_checkbox']");
-            debugger
             for (let i = 0; i < len.length; i++) {
                 //@ts-ignore
                 len[i].checked = true
@@ -67,7 +66,7 @@ const Search: React.FC<any> = (props) => {
                 {props.cancelMail ? <button className="search__label-btn">
                     <h5 className="search__label-title">{props.cancelMail}</h5>
                 </button> :
-                    <LabelModal />}
+                   ( props.url ==='/sent-messages' ? '' : <LabelModal /> )}
                 {/* // <button className="search__label-btn">
                 //     
                 //     <h5 className="search__label-title"></h5>

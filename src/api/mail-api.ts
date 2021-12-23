@@ -56,6 +56,7 @@ export type MailResponceDataType = {
    attachments: LabelResponceDataType
    is_opened: number
    is_important: number
+   is_deleted: number
    send_as: null
    created_at: null
    updated_at: null

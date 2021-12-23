@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './assets/scss/style.scss';
 import './App.scss'
-import { BrowserRouter, Route, withRouter, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, withRouter, Switch, Redirect, RouteComponentProps } from "react-router-dom";
 import { useRoutes } from './router/useRoutes';
 import {Header} from './components/header/Header';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -20,12 +20,13 @@ import { NewLabel } from './page/label/NewLabel';
 import MailContainer from './page/Mail/MailContainer';
 import ProfileContainer from './page/Profile/ProfileContainer';
 import { Message } from './page/Mail/Message/Message';
-import { DocumentFlow } from './page/document-flow/DocumentFlow';
+import DocumentFlowContainer from './page/document-flow/DocumentFlowContainer';
 import { Settings } from './page/Mail/Settings/Settings';
 import { ChosenMessage } from './page/Mail/ChosenMessage';
 import ProtectedRoute from './router/ProtectedRoute';
 import { ReferencesLayout } from './components/layout/ReferencesLayout';
 import ReferencesContainer from './page/References/ReferencesContainer';
+import { FilterComponent } from './components/filterComponent/FilterComponent';
 
 
 
@@ -34,8 +35,11 @@ type DispatchPropsType = {
   initializeApp: () => void
   toggleModal: () => void
 }
+type PathParamsType = {
+  
+}
 
-class App extends Component<MapPropsType & DispatchPropsType> {
+class App extends Component<MapPropsType & DispatchPropsType & RouteComponentProps<PathParamsType>> {
 
   componentDidMount() {
      this.props.initializeApp()
@@ -57,20 +61,21 @@ class App extends Component<MapPropsType & DispatchPropsType> {
             <Route path='/' exact render={() => <Redirect to={'/login'}/> } />
             <Route path='/login' render={() => <LoginPage />} />
             
-            <ProtectedRoute path={['/mail/:mailId?','/sent-messages','/chosen-messages']} component={MailContainer} />
-            <ProtectedRoute path='/create-label' toggleModal={this.props.toggleModal} isModal={this.props.isModal} component={NewLabel} />
-            <ProtectedRoute path='/message' toggleModal={this.props.toggleModal} isModal={this.props.isModal} component={Message} />
-            <ProtectedRoute path='/settings' toggleModal={this.props.toggleModal} isModal={this.props.isModal} component={Settings} />
+            <ProtectedRoute path={['/mail/:mailId?','/sent-messages','/chosen-messages','/trash-mails']} component={MailContainer} />
+            <ProtectedRoute path='/create-label' toggleModal={this.props.toggleModal} match={this.props.match} isModal={this.props.isModal}  component={NewLabel} />
+            <ProtectedRoute path='/message' toggleModal={this.props.toggleModal} match={this.props.match} isModal={this.props.isModal} component={Message} />
+            <ProtectedRoute path='/settings' toggleModal={this.props.toggleModal} match={this.props.match} isModal={this.props.isModal} component={Settings} />
            
             <ProtectedRoute path='/references' component={ReferencesContainer} />
             
             <ProtectedRoute path='/profile' component={ProfileContainer} />
 
-            <ProtectedRoute path='/my-document' toggleModal={this.props.toggleModal} isModal={this.props.isModal} component={MyDocument} />
+            {/* <ProtectedRoute path='/my-document' toggleModal={this.props.toggleModal} isModal={this.props.isModal} component={MyDocument} /> */}
             
             <Route path='/layout' render={() => <MainLayout />} />
 
-            <ProtectedRoute path='/document-flow' component={DocumentFlow} />
+            <ProtectedRoute path={['/document-flow/:documentId?']} component={DocumentFlowContainer} />
+            <ProtectedRoute path='/document-flow-filter' component={FilterComponent} />
 
             <Route path='*'
               render={() => <div>404 NOT FOUND</div>} />

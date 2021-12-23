@@ -48,6 +48,7 @@ const SettingsForm: React.FC<InjectedFormProps<CreateFormValuesType>> = ({ handl
 type SettingsPropsType = {
     toggleModal: () => void
     isModal: boolean
+    match: any
 }
 
 const SettingsReduxForm = reduxForm<CreateFormValuesType>({ form: 'settings' })(SettingsForm)
@@ -68,7 +69,7 @@ export const Settings: React.FC<SettingsPropsType> = (props) => {
         
     }
     return (<div className='settings'>
-        <LayoutMail isModal={props.isModal} toggleModal={props.toggleModal}>
+        <LayoutMail match={props.match}>
             <SettingsReduxForm onSubmit={onSubmit} />
         </LayoutMail>
     </div>

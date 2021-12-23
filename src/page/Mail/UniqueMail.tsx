@@ -6,7 +6,7 @@ import { AppStateType } from '../../redux/redux'
 
 import Arrow from '../../assets/image/icon/caret_down.png'
 import { useSelector } from 'react-redux'
-import { Tag } from 'antd'
+import { message, Tag } from 'antd'
 import { LabelResponceDataType, mail_label_id } from '../../api/label-api'
 import { useHistory } from 'react-router-dom'
 
@@ -15,6 +15,7 @@ type UniqueMailPropsType = {
     uniqueMailData: MailResponceDataType
     deleteMail: (mailId: number) => any
     mailId: string
+    moveMailToTrash: (mailId: number,deletedMailData: object) => Promise<object>
 }
 
 
@@ -105,8 +106,18 @@ export const UniqueMail: React.FC<UniqueMailPropsType> = (props) => {
                 </li>
             </ul>
             <button className="unique-mail__options-delete" onClick={() => {
-                props.deleteMail(props.uniqueMailData.id).then(() => history.push('/mail'))
-                }}>
+                debugger
+                if(props.uniqueMailData.is_deleted){
+                    props.deleteMail(props.uniqueMailData.id)
+                    message.success('Сообщение успешно удалено!')
+                    history.push('/trash-mails')
+                }
+                else{
+                props.moveMailToTrash(props.uniqueMailData.id,{"status": "is_deleted","value": 1}).then(() => {
+                    history.push('/mail')
+                    message.success('Сообщение успешно перемещено в корзину')}).catch((error)=>{
+                    message.error("Что-то пошло не так, пожалуйста повторите попытку позже")})
+                }}}>
                 УДАЛИТЬ
             </button>
         </div>

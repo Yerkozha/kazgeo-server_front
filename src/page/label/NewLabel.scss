@@ -27,7 +27,7 @@
 .label-form {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 500px;
+    grid-template-rows: auto;
     grid-gap: 25px;
 }
 .list {

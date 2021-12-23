@@ -21,8 +21,8 @@ export const Header = (props: any) => {
                                 props.toggleModal(true)
                             }}>Почта</Link></li>
                             <li className="header__menu-item"><Link to="/my-document" className="header__menu-link">Мои документы</Link></li>
-                            <li className="header__menu-item"><ReferencesDropdown /></li>
-                            <li className="header__menu-item"><Link to="/document-flow" className="header__menu-link">Документооборот</Link></li>
+                            <li className="header__menu-item"><ReferencesDropdown title='Справочники' /></li>
+                            <li className="header__menu-item"><ReferencesDropdown title='Документооборот' /></li>
                             <li className="header__menu-item"><Link to="/library" className="header__menu-link">Библиотека документов</Link></li>
                         </ul>
                     </div>

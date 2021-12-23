@@ -401,6 +401,7 @@
         font-weight: 300;
         font-size: 14px;
         line-height: 17px;
+        width: 81vw;
         @extend %input__mail;
     }
     &__form-to--modify input {
@@ -420,7 +421,7 @@
         font-weight: 300;
         font-size: 14px;
         line-height: 17px;
-        width: 80vw;
+        width: 81vw;
         @extend %input__mail;
     }
     &__form-theme input:focus {

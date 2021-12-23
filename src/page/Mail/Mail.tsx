@@ -35,6 +35,7 @@ export const Mail = (props: any) => {
                 return item.mail.sender && item.mail.sender.name
         }
     }
+    
     return (<div className='mail'>
         
             {/* <Paginator onPageChanged={onPageChanged} /> */}

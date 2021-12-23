@@ -5,13 +5,14 @@ import { instance } from '../api/api';
 import { getAllMail, setMailIdAndClear } from './mail-reducer';
 
 let initialState = {
-    labelId: null         as number | null|undefined,
+    id: null              as number|null,
     name: null            as string | null,
     display_message: null as number | null,
     color: null           as string | null,
-    labels: []   as Array<LabelResponceDataType>,
+    labels: []            as any,
+    labelsAfterCreate: [] as Array<LabelResponceDataType>,
     currentColor: null    as string | null,
-    idx: 1             as number | null,
+    idx: 1                as number | null,
 }
 
 export const labelReducer = (state = initialState, action: ActionsType): InitialStateType => {
@@ -19,12 +20,17 @@ export const labelReducer = (state = initialState, action: ActionsType): Initial
         case 'DL/MAIL/ADD_LABEL':
             return {
                 ...state,
+                labelsAfterCreate: action.labelsAfterCreate
+            }
+        case 'DL/MAIL/UPDATED_LABEL':
+            return {
+                ...state,
                 ...action.payload
             }
         case 'DL/MAIL/GET_LABELS':
             return {
                 ...state,
-                labels: [...action.labels]
+                labels: action.labels
             }
         case 'DL/MAIL/SET_CURREMT_LABEL_COLOR':
             return {
@@ -34,7 +40,7 @@ export const labelReducer = (state = initialState, action: ActionsType): Initial
         case 'DL/MAIL/ADD_NEW_LABEL':
             return {
                 ...state,
-                labels: [...action.labels]
+                labels: [...state.labels,...action.labels]
             }
         case 'DL/MAIL/ON_SELECT_LABEL':
             return {
@@ -47,28 +53,32 @@ export const labelReducer = (state = initialState, action: ActionsType): Initial
 }
 
 export const actions = {
-    addPostActionCreator: (labelId: number|undefined, name: string, display_message: number, color: string) => ({ type: 'DL/MAIL/ADD_LABEL', payload: {labelId, name, display_message, color } } as const),
+    addPostActionCreator: ( labelsAfterCreate: Array<LabelResponceDataType> ) => ({ type: 'DL/MAIL/ADD_LABEL', labelsAfterCreate } as const),
+    setUpdatedData: ( payload: any ) => ({ type: 'DL/MAIL/UPDATED_LABEL', payload } as const),
     addGetLabelsActionCreator: (labels: Array<LabelResponceDataType>) => ({type: 'DL/MAIL/GET_LABELS',labels} as const),
     setCurrentColor: ( currentColor: string ) => ({type:'DL/MAIL/SET_CURREMT_LABEL_COLOR', currentColor} as const),
     addNewLabelOnClick: ( labels: Array<LabelResponceDataType> ) => ({ type: 'DL/MAIL/ADD_NEW_LABEL', labels} as const),
     onSelectLabel: ( idx: number ) => ({ type: 'DL/MAIL/ON_SELECT_LABEL', idx} as const)
 }
 
-export const addLabel = (name: string, display_message: number, color: string|null) => {
+export const addLabel = (labels:any) => {
     return async (dispatch: any) => {
-        const {data} = await labelAPI.createLabel(name, display_message, color)
-        dispatch(actions.addPostActionCreator(data.labelId,data.name, data.display_message, data.color))
+        const data = await labelAPI.createLabel(labels)
+        //@ts-ignore
+        dispatch(actions.addPostActionCreator(data))
     }
 }
 export const updateLabel = ( labelId: number,name: string, color: string ) => {
     return async (dispatch: any) => {
         const {data} = await labelAPI.updateLabel(labelId,name,color)
-        dispatch(actions.addPostActionCreator(data.labelId,data.name, data.display_message, data.color))
+        debugger
+        dispatch(actions.setUpdatedData({id: data.id, name: data.name, color: data.color, display_message: data.display_message}))
     }
 }
 export const getLabels = () => {
     return async (dispatch: any) => {
         const {data} = await labelAPI.getLabels()
+        debugger
         dispatch(actions.addGetLabelsActionCreator(data))
     }
 }
