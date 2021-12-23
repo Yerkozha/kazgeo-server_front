@@ -28,6 +28,8 @@ import { ReferencesLayout } from './components/layout/ReferencesLayout';
 import ReferencesContainer from './page/References/ReferencesContainer';
 import { FilterComponent } from './components/filterComponent/FilterComponent';
 import { OutgoingDocument } from './page/document-flow/document-flow-options/OutgoingDocument';
+import { CreateInternalDocument } from './page/create-internal-document/CreateInternalDocument';
+
 
 
 
@@ -72,12 +74,14 @@ class App extends Component<MapPropsType & DispatchPropsType & RouteComponentPro
             <ProtectedRoute path='/profile' component={ProfileContainer} />
 
             {/* <ProtectedRoute path='/my-document' toggleModal={this.props.toggleModal} isModal={this.props.isModal} component={MyDocument} /> */}
+            <ProtectedRoute path='/create-internal-document' toggleModal={this.props.toggleModal} isModal={this.props.isModal} component={CreateInternalDocument} />
             
             <Route path='/layout' render={() => <MainLayout />} />
 
             <ProtectedRoute path={['/document-flow/:documentId?']} component={DocumentFlowContainer} />
             <ProtectedRoute path='/document-flow-filter' component={FilterComponent} />
             <ProtectedRoute path='/document-outgoing' component={OutgoingDocument} />
+
 
             <Route path='*'
               render={() => <div>404 NOT FOUND</div>} />
