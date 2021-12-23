@@ -15,6 +15,7 @@ import UserCheck from '../../assets/image/user_check.png'
 import UserCircle from '../../assets/image/user_circle.png'
 import UserVoice from '../../assets/image/user_voice.png'
 import Group from '../../assets/image/Group 101.png'
+import header__arrow from '../../assets/image/header__arrow.png'
 
 export const ReferencesDropdown: React.FC<any> = (props:any) => {
     const { SubMenu } = Menu;
@@ -66,7 +67,7 @@ export const ReferencesDropdown: React.FC<any> = (props:any) => {
     
     return (<Dropdown overlay={props.title === 'Документооборот' ? documentFlow : referencesMenu}>
             <a className="ant-dropdown-link header__menu-link" onClick={e => e.preventDefault()}>
-                { props.title }<CaretDownOutlined />
+                { props.title }<img src={header__arrow} alt='Arrow Header' style={{display: 'inline-block'}} />
             </a>
         </Dropdown>
     )

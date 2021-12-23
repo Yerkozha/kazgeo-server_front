@@ -11,7 +11,7 @@ import { Menu, Dropdown } from 'antd'
 import { ReferencesDropdown } from './ReferencesDropdown'
 export const Header = (props: any) => {
     let [open, setOpen] = useState(false)
-    
+    debugger
     return (<div className='header'>
             <div className="container">
                 <div className="header__inner">

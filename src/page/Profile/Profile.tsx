@@ -8,7 +8,7 @@ import '../Main.scss'
 const Profile:React.FC = (props:any) => {
     let formRef = React.createRef()
     return (
-        <div className={"profilePage"}>
+        <div className="profilePage">
         <Row>
             <h1 className='profile__title'>ПРОФИЛЬ</h1>
         </Row>
