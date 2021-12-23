@@ -121,7 +121,7 @@ export const IncomingDocument = (props: any) => {
                 </div>
             </div>
             <Link to='/document-flow/2'>
-            <Table columns={columns} dataSource={data} scroll={{ x: '100%' }} size="middle" {...rowSelection} />
+            <Table columns={columns} dataSource={data} scroll={{ x: '100%' }} size="middle"  />
             </Link>
         </div>
     )

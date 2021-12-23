@@ -4,7 +4,6 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { AppStateType } from '../../redux/redux';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-
 import { IncomingDocument } from './document-flow-options/IncomingDocument';
 import './DocumentFlow.scss'
 import { Details } from './document-flow-options/Details';
