@@ -108,7 +108,6 @@ export const UniqueMail: React.FC<UniqueMailPropsType> = (props) => {
             <button className="unique-mail__options-delete" onClick={() => {
                 if(props.uniqueMailData.is_deleted){
                     props.deleteMail(props.uniqueMailData.id)
-                    message.success('Сообщение успешно удалено!')
                     history.push('/trash-mails')
                 }
                 else{
