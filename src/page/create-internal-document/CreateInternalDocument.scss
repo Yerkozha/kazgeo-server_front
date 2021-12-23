@@ -1,0 +1,287 @@
+.CreateInternalDocument{
+    &__wrapper {
+        min-height: 100vh;
+        padding: 0 10px 54px;
+    }
+    &__block{
+        padding: 15px;
+        background-color: #fff;
+        border: 0.5px solid #C5CEE0;
+        box-shadow: 0px 0px 0px rgba(90, 113, 208, 0.107337);
+        margin: 5px;
+
+        &.documentRoute{
+            & .CreateInternalDocument__label{
+                max-width: 885px;
+            }
+            & .select{
+                max-width: 323px;
+            }
+        }
+
+        &.listDocuments{
+            & .uploadFile{
+                max-width: 557px;
+                display: flex;
+                justify-content: space-between;
+
+                &__img{
+                    height: 20px;
+                    width: 20px;
+                    margin-right: 10px;
+                }
+
+                &__input{
+                    position: relative;
+                }
+
+                &__input input{
+                    min-width: 323px;
+                    padding-left: 40px;
+                    padding-right: 70px;
+                    background: #000;
+                    border-radius: 3px;
+                    background: rgba(237, 241, 247, 0.8);
+                }
+
+                & .hamburger,
+                &__btns{
+                    position: absolute;
+                    left: 10px;
+                    top: 50%;
+                    z-index: 10;
+                    transform: translateY(-50%);
+                }
+
+                & .hamburger,
+                &__btns button{
+                    padding: 0;
+                    border: 0;
+                    height: 20px;
+                    width: 20px;
+                    cursor: pointer;
+                }
+
+                &__btns{
+                    display: flex;
+                    left: auto;
+                    right: 10px;
+                    & button:first-child{
+                        margin-right: 10px;
+                    }
+                }
+            }
+
+            & button{
+                font-size: 14px;
+                color: #2E3A59;
+
+                display: flex;
+                align-items: center;
+
+                padding: 10px 35px;
+                border-radius: 3px;
+                border: .5px solid #212529;
+            }
+        }
+
+        & > div{
+            margin-bottom: 15px;
+        }
+
+        & .author{
+            position: relative;
+            & input{
+                color: #222B45;
+                max-width: 466px;
+                background-color: #EDF1F7;
+                padding-left: 40px;
+            }
+    
+            & span{
+                display: block;
+                background: url("../../assets/image/userPurple.png") no-repeat;
+                width: 30px;
+                height: 20px;
+
+                position: absolute;
+                left: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+
+        & .human{
+            max-width: 557px;
+            position: relative;
+            & span{
+                display: block;
+                background: url("../../assets/image/user_circle.png") no-repeat;
+                width: 30px;
+                height: 20px;
+
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+    }
+    &__toggleBtns{
+        display: flex;
+    }
+
+    &__toggleBtn{
+        display: block;
+        width: 44px;
+        height: 40px;
+        font-size: 14px;
+        color: #C5CEE0;
+        background: rgba(197, 206, 224, 0.2);
+        box-shadow: 0px 7px 64px rgba(25, 32, 56, 0.07);
+        margin-right: 3px;
+        border: 1px solid transparent;
+        transition: border-color .2s linear;
+        cursor: pointer;
+
+        &.active{
+            color: rgba(255, 255, 255, 0.8);
+            background-color: #A5A6F6;
+        }
+
+        &:hover{
+            border-color: #A5A6F6;
+        }
+    }
+
+
+    &__label{
+        font-weight: 500;
+        font-size: 13px;
+        color: rgba(33, 37, 41, 0.5);
+        margin-bottom: 7px;
+
+        & span{
+            color: #FF3D71;
+        }
+    }
+
+    &__select{
+        position: relative;
+        width: 100%;
+    
+        &:hover{
+          & .options{
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+          }
+        }
+
+    }
+
+
+    &__input{
+        width: 100%;
+        background: #ffffff;
+        border: 0.5px solid #c5cee0;
+        color: #222B45;
+        border-radius: 3px;
+        padding: 11px 44px 12px 16px;
+        outline: none;
+
+
+        &::placeholder{
+            color: #222B45;
+        }
+    }
+    
+}
+.options{
+    width: 100%;
+    position: absolute;
+    top: 105%;
+    left: 0;
+    z-index: 10;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(50px);
+
+    border: 1px solid rgba(#212529, .7);
+    background-color: #fff;
+    box-shadow: 30px 30px 100px rgba(0, 0, 0, 0.1);
+    transition: all .2s linear;
+}
+
+.option{
+    cursor: pointer;
+    padding: 10px 15px;
+    font-size: 16px;
+    line-height: 20px;
+    color: #000;
+    transition: background-color .2s linear;
+    
+    &:hover{
+        background-color: rgba(#000, 0.15);
+    }
+}
+.CreateInternalDocument__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0 6px 13px;
+    &__buttons {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+    }
+    &__save,
+    &__cancel {
+        font-size: 14px;
+        line-height: 20px;
+        color: rgba(46, 58, 89, 0.8);
+        text-transform: uppercase;
+    }
+    &__search {
+        width: 374px;
+        position: relative;
+        input {
+            width: 100%;
+            padding: 8px 42px;
+            border: 1px solid #E4E9F2;
+            box-sizing: border-box;
+            border-radius: 3px;
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cmask id='mask0_1_16318' style='mask-type:alpha' maskUnits='userSpaceOnUse' x='0' y='0' width='20' height='20'%3E%3Crect width='20' height='20' fill='white'/%3E%3C/mask%3E%3Cg mask='url(%23mask0_1_16318)'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M11.9802 10.3974C13.3718 8.44472 13.1917 5.71632 11.4398 3.96447C9.48721 2.01184 6.32138 2.01184 4.36876 3.96447C2.41614 5.91709 2.41614 9.08291 4.36876 11.0355C6.12062 12.7874 8.84902 12.9675 10.8017 11.5759L15.5646 16.3388L16.7431 15.1603L11.9802 10.3974C11.9802 10.3974 13.3718 8.44472 11.9802 10.3974ZM10.2613 5.14298C11.5631 6.44472 11.5631 8.55527 10.2613 9.85702C8.95957 11.1588 6.84902 11.1588 5.54727 9.85702C4.24553 8.55527 4.24553 6.44472 5.54727 5.14298C6.84902 3.84123 8.95957 3.84123 10.2613 5.14298C10.2613 5.14298 11.5631 6.44472 10.2613 5.14298Z' fill='%232E3A59' fill-opacity='0.3'/%3E%3C/g%3E%3C/svg%3E%0A");
+            background-repeat: no-repeat;
+            background-position: left 10px center;
+            outline: none;
+            &::placeholder {
+                font-size: 14px;
+                color: rgba(46, 58, 89, 0.3);
+            }
+            &:focus {
+                border-color: #5D5FEF;
+            }
+        }
+        .settings {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        top: 0;
+        transform: translateY(50%);
+        right: 10px;
+        background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cmask id='mask0_1_16324' style='mask-type:alpha' maskUnits='userSpaceOnUse' x='0' y='0' width='20' height='20'%3E%3Crect width='20' height='20' fill='white'/%3E%3C/mask%3E%3Cg mask='url(%23mask0_1_16324)'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10 13.3333C8.15909 13.3333 6.6667 11.8409 6.6667 9.99999C6.6667 8.15904 8.15909 6.66666 10 6.66666C11.841 6.66666 13.3334 8.15904 13.3334 9.99999C13.3334 11.8409 11.841 13.3333 10 13.3333ZM10 11.6667C9.07957 11.6667 8.33337 10.9205 8.33337 9.99999C8.33337 9.07951 9.07957 8.33332 10 8.33332C10.9205 8.33332 11.6667 9.07951 11.6667 9.99999C11.6667 10.9205 10.9205 11.6667 10 11.6667ZM3.54152 4.51978C3.73732 4.18064 4.14286 4.02358 4.51602 4.14239L6.04683 4.62979C6.2511 4.47958 6.46304 4.34179 6.68142 4.21675C6.88946 4.09711 7.10456 3.98838 7.32595 3.89132L7.66926 2.32191C7.75295 1.93934 8.09173 1.66666 8.48335 1.66666H11.5169C11.9085 1.66666 12.2472 1.93934 12.3309 2.32191L12.6742 3.89132C12.9092 3.9943 13.137 4.11044 13.3568 4.2388C13.5617 4.35794 13.7609 4.48836 13.9532 4.62979L15.484 4.1424C15.8572 4.02359 16.2627 4.18064 16.4585 4.51979L17.9753 7.14688C18.1711 7.48603 18.1043 7.91576 17.8148 8.17952L16.6274 9.26155C16.6546 9.50735 16.668 9.75357 16.6678 9.99906C16.6681 10.2452 16.6547 10.492 16.6274 10.7385L17.8148 11.8205C18.1043 12.0842 18.1711 12.514 17.9753 12.8531L16.4585 15.4802C16.2627 15.8194 15.8572 15.9764 15.484 15.8576L13.9532 15.3702C13.7585 15.5134 13.5569 15.6452 13.3493 15.7656C13.1318 15.8922 12.9065 16.0068 12.6742 16.1087L12.3309 17.6781C12.2472 18.0606 11.9085 18.3333 11.5169 18.3333H8.48335C8.09173 18.3333 7.75295 18.0606 7.66926 17.6781L7.32595 16.1087C7.10714 16.0127 6.89447 15.9054 6.68869 15.7874C6.46774 15.6613 6.25336 15.5221 6.04683 15.3702L4.51602 15.8576C4.14286 15.9764 3.73732 15.8194 3.54151 15.4802L2.02476 12.8531C1.82895 12.514 1.89571 12.0842 2.18519 11.8205L3.37268 10.7385C3.34539 10.4923 3.33201 10.2458 3.33224 9.99998C3.33201 9.75418 3.34539 9.50765 3.37268 9.26154L2.18519 8.17952C1.89572 7.91576 1.82895 7.48603 2.02476 7.14688L3.54152 4.51978ZM11.2275 5.07687L12.0051 5.41775C12.1809 5.49484 12.3516 5.58183 12.5164 5.67807L12.5191 5.67963C12.6727 5.76895 12.8219 5.86665 12.9659 5.97252L13.6499 6.47547L15.3505 5.934L16.1965 7.39933L14.8773 8.60141L14.9708 9.44524C14.9913 9.62924 15.0013 9.81369 15.0011 9.99774C15.0013 10.1854 14.9913 10.3703 14.9708 10.5547L14.8773 11.3986L16.1965 12.6007L15.3505 14.066L13.6499 13.5245L12.9659 14.0275C12.8201 14.1346 12.6691 14.2334 12.5135 14.3236C12.3477 14.4201 12.1789 14.506 12.0051 14.5822L11.2275 14.9231L10.8461 16.6667H9.1541L8.7727 14.9231L7.99513 14.5822C7.83134 14.5104 7.67202 14.43 7.51776 14.3416L7.51504 14.34C7.34937 14.2454 7.18878 14.1412 7.03418 14.0275L6.35019 13.5245L4.64953 14.066L3.80352 12.6007L5.12278 11.3986L5.0292 10.5548C5.00877 10.3705 4.99874 10.1858 4.99892 10.0015C4.99874 9.81414 5.00877 9.62946 5.0292 9.44524L5.12278 8.60141L3.80352 7.39933L4.64953 5.934L6.35019 6.47547L7.03418 5.97251C7.18708 5.86008 7.34585 5.75686 7.50959 5.6631L7.51231 5.66154C7.66827 5.57185 7.82941 5.4904 7.99513 5.41775L8.7727 5.07687L9.1541 3.33332H10.8461L11.2275 5.07687Z' fill='%232E3A59' fill-opacity='0.8'/%3E%3C/g%3E%3C/svg%3E%0A");
+        }
+    }
+}
+.CreateInternalDocument__title{
+    font-weight: 500;
+    font-size: 16px;
+
+    color: #5D5FEF;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #5D5FEF;
+    margin-bottom: 15px;
+}
+  
