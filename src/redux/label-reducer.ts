@@ -78,7 +78,6 @@ export const updateLabel = ( labelId: number,name: string, color: string ) => {
 export const getLabels = () => {
     return async (dispatch: any) => {
         const {data} = await labelAPI.getLabels()
-        debugger
         dispatch(actions.addGetLabelsActionCreator(data))
     }
 }

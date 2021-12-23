@@ -119,7 +119,7 @@ const mapStateToProps = (state: AppStateType) => ({
   initialized: state.app.initialized,
   isModal: state.app.isModal,
   id: state.auth.id,
-  userName:state.auth.name
+  userName: state.auth.name
 })
 
 let AppContainer = compose<React.ComponentType>(

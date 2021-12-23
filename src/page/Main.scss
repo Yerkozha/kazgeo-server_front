@@ -753,25 +753,26 @@
         background: #f6e9a5;
         border-radius: 3px;
         margin-top: 30px;
+        margin-bottom: 20px;
     }
     &__btn-cancel {
         background-color: transparent;
-        color: #2E3A59;
+        color: #2e3a59;
     }
 }
-.ant-form-item-control-input-content{
+.ant-form-item-control-input-content {
     font-family: "SF Pro Display Regular";
     font-size: 14px;
     line-height: 17px;
 }
-.profile__title{
+.profile__title {
     font-family: "SF Pro Display Regular";
     font-size: 24px;
     line-height: 17px;
     font-weight: 500;
     margin: 10px 50px;
 }
-.profilePage{
+.profilePage {
     min-height: 100vh;
 }
 
@@ -781,57 +782,56 @@
     line-height: 64px;
     cursor: pointer;
     transition: color 0.3s;
-  }
-  
-  #components-layout-demo-custom-trigger .trigger:hover {
+}
+
+#components-layout-demo-custom-trigger .trigger:hover {
     color: #1890ff;
-  }
-  
-  #components-layout-demo-custom-trigger .logo {
+}
+
+#components-layout-demo-custom-trigger .logo {
     height: 32px;
     margin: 16px;
     background: rgba(255, 255, 255, 0.3);
-  }
-  
-  .site-layout .site-layout-background {
+}
+
+.site-layout .site-layout-background {
     background: transparent;
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
+}
 
-  .ant-layout .ant-input-group{
-      display: flex;
-      flex-direction: row-reverse;
-      justify-content: space-between;
-  }
-  .ant-layout .ant-input-search{
+.ant-layout .ant-input-group {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+.ant-layout .ant-input-search {
     width: 320px;
     border-radius: 3px;
-  }
-  .references__btn{
-      background: transparent;
-      border: none;
-      color: rgba(46, 58, 89, 0.8);
-      font-family: 'SF Pro Display Regular';
-      font-size: 14px;
-      margin-left: 10px;
-  }
-  .references__tree{
-      min-height: 100vh;
-  }
-  .ant-dropdown-menu-item-group-list {
+}
+.references__btn {
+    background: transparent;
+    border: none;
+    color: rgba(46, 58, 89, 0.8);
+    font-family: "SF Pro Display Regular";
+    font-size: 14px;
+    margin-left: 10px;
+}
+.references__tree {
+    min-height: 100vh;
+}
+.ant-dropdown-menu-item-group-list {
     margin: 0;
-  }
+}
 
-  .mail__toolbar{
-      display: flex;
-      justify-content: space-between;
-  }
-  .mail__toolbar-items{
-     
-  }
-  .incoming__mail-title{
-      display: flex;
-      justify-content: space-between;
-  }
+.mail__toolbar {
+    display: flex;
+    justify-content: space-between;
+}
+.mail__toolbar-items {
+}
+.incoming__mail-title {
+    display: flex;
+    justify-content: space-between;
+}

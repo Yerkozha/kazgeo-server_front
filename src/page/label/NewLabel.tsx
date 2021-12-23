@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 import React, { useEffect, useState, Dispatch } from 'react'
-import { InjectedFormProps, reduxForm, formValueSelector, Field, reset, DecoratedFormProps} from 'redux-form'
+import { InjectedFormProps, reduxForm, formValueSelector, Field, reset, DecoratedFormProps } from 'redux-form'
 import { createField, GetStringKeys, Input, Select } from '../../components/common/FormsControls/FormsControls'
 import { required } from '../../utils/validators/validators'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,13 +9,13 @@ import './NewLabel.scss'
 import { actions, addLabel, getLabels } from '../../redux/label-reducer'
 import { MainLayout } from '../../components/layout/MainLayout'
 import { LayoutMail } from '../../components/layout/LayoutMail'
-
+import close_small from '../../assets/image/close_small.png'
 
 const LabelForm: React.FC<any> = ({ handleSubmit, error, submitting }) => {
 
     const dispatch = useDispatch()
-    const [currentColor,labels] = useSelector((state: AppStateType) => [state.label.currentColor,state.label.labels])
-    const labelId = labels.map( (i: any) => i.id)
+    const [currentColor, labels] = useSelector((state: AppStateType) => [state.label.currentColor, state.label.labels])
+    const labelId = labels.map((i: any) => i.id)
     const colors = ['red', 'green', 'blue']
     const [toggleColorDropDown, setToggleColorDropDown] = useState(false)
 
@@ -23,16 +23,16 @@ const LabelForm: React.FC<any> = ({ handleSubmit, error, submitting }) => {
         return Math.floor(Math.random() * 100)
     }
     const addNewLabel = () => {
-        if(labelId.include(generateId())){
+        if (labelId.include(generateId())) {
             let id = Math.floor(Math.random() * 100)
-            
+
         }
 
     }
     const deleteNewLabel = (id: any) => {
 
     }
-    
+
     const onSelectCurrentLabel = (id: any) => {
 
     }
@@ -42,7 +42,7 @@ const LabelForm: React.FC<any> = ({ handleSubmit, error, submitting }) => {
             <div className="label-layer">
                 <div className="label__top">
                     <div className="label__top-container">
-                        <h1 className="label__top-right">Ярлыки</h1>
+                        <h1 className="label__top-right--l">Ярлыки</h1>
                         <button className="label__top-btn" onClick={addNewLabel}>ДОБАВИТЬ ЯРЛЫК</button>
                     </div>
                     <h1 className="label__top-right">Параметры ярлыка</h1>
@@ -55,16 +55,17 @@ const LabelForm: React.FC<any> = ({ handleSubmit, error, submitting }) => {
                                 onSelectCurrentLabel(label.id)
                             }}>
                                 <div className="list__container" >
-                                    <div className="list__item-btn" />
+                                    {/* <div className="list__item-btn" /> */}
                                     <h1 className="list__item-title">{label.name}</h1>
                                 </div>
                                 {/* @ts-ignore */}
-                                <div className="list__item-close" onClick={() => deleteNewLabel(label.id)} />
+                                <img src={close_small} className="list__item-close" onClick={() => deleteNewLabel(label.id)} />
                             </li>
                             )
                         })}
                     </ul>
                     <div className='create-label'>
+                        <h1 className="create-label-title">Название</h1>
                         {createField<LabelFormValuesTypeKeys>('Название', 'name', [required], Input)}
                         {createField<LabelFormValuesTypeKeys>(undefined, 'showOnMail', [], Input, { type: 'checkbox' }, 'Отображать сообщение в папке Входящие')}
                         {/* <Field name="favoriteColor" component="select">
@@ -82,10 +83,13 @@ const LabelForm: React.FC<any> = ({ handleSubmit, error, submitting }) => {
                                     dispatch(actions.setCurrentColor(item))
                                 }} />)}</div>}
                         <div>
-                            <button>Сохранить</button>
+                            <h1 className="create__label-title">Цвет</h1>
                         </div>
                     </div>
                 </div>
+                <h1 className="settings__warning">ВНИМАНИЕ: Ярлыки и изменения будут применены только для вновь поступивших сообщений</h1>
+        <button className="settings__btn-save message__send-btn">СОХРАНИТЬ</button>
+        <button className="settings__btn-cancel message__send-btn">ОТМЕНИТЬ</button>
             </div>
         </form>
     )
@@ -169,6 +173,6 @@ export const NewLabel: React.FC<NewLabelPropsType> = (props) => {
     }, [])
 
     return <LayoutMail match={props.match}>
-            <LabelFormReduxForm onSubmit={onSubmit} />
-        </LayoutMail>
+        <LabelFormReduxForm onSubmit={onSubmit} />
+    </LayoutMail>
 }
