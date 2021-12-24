@@ -11,8 +11,6 @@ import { connect, Provider } from 'react-redux';
 import store, { AppStateType } from './redux/redux';
 import { initializeApp, toggleModal } from './redux/app-reducer'
 
-import MyDocument from './page/MyDocument/MyDocument';
-import Main from './page/enter/Main';
 import { MainLayout } from './components/layout/MainLayout';
 import { Mail } from './page/Mail/Mail';
 import { LoginPage } from './page/login/Login';
@@ -29,6 +27,7 @@ import ReferencesContainer from './page/References/ReferencesContainer';
 import { FilterComponent } from './components/filterComponent/FilterComponent';
 import { OutgoingDocument } from './page/document-flow/document-flow-options/OutgoingDocument';
 import { CreateInternalDocument } from './page/create-internal-document/CreateInternalDocument';
+import MyDocumentContainer from './page/MyDocument/MyDocumentContainer';
 
 
 
@@ -73,7 +72,8 @@ class App extends Component<MapPropsType & DispatchPropsType & RouteComponentPro
             
             <ProtectedRoute path='/profile' component={ProfileContainer} />
 
-            {/* <ProtectedRoute path='/my-document' toggleModal={this.props.toggleModal} isModal={this.props.isModal} component={MyDocument} /> */}
+            <ProtectedRoute path={['/my-document/:documentId?','/create-internal-document']} component={MyDocumentContainer} />
+
             <ProtectedRoute path='/create-internal-document' toggleModal={this.props.toggleModal} isModal={this.props.isModal} component={CreateInternalDocument} />
             
             <Route path='/layout' render={() => <MainLayout />} />

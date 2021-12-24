@@ -40,7 +40,6 @@ export const LayoutMail = (props: any) => {
     return (
         <Layout>
             <Sider width={220} trigger={null} collapsible collapsed={isModal} className='references__layout' style={{ background: "#FFFFFF" }}>
-
                 <Menu mode="inline" defaultSelectedKeys={['1']} >
                         <Menu.Item key="1" icon={isModal && <MailOutlined />} onClick={() => {
                             dispatch(toggleModal(!isModal))

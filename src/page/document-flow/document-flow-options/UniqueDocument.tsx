@@ -4,7 +4,6 @@ import { DocumentFlowTool } from '../../../components/common/Search/DocumentFlow
 import '../DocumentFlow.scss'
 import FolderOpen from '../../../assets/image/icon/folder_open.png'
 import User from '../../../assets/image/document_user.png'
-import ReactHtmlParser from 'react-html-parser'
 
 export const UniqueDocument = () => {
     const { Header, Content } = Layout

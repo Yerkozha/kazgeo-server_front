@@ -50,7 +50,7 @@ export const ReferencesDropdown: React.FC<any> = (props:any) => {
     )
     const documentFlow = (<Menu>
                 <Menu.Item icon={<img src={Send} alt='Send' />}><Link to="/document-flow">Входящие</Link></Menu.Item>
-                <Menu.Item icon={<img src={Enter} alt='Send' />}><Link to="/document-flow">Исходящие</Link></Menu.Item>
+                <Menu.Item icon={<img src={Enter} alt='Send' />}><Link to="/document-outgoing">Исходящие</Link></Menu.Item>
                 <Menu.Item icon={<img src={Edit} alt='Send' />}><Link to="/document-flow">Внутренние</Link></Menu.Item>
                 <Menu.Item icon={<img src={UserCheck} alt='Send' />}><Link to="/document-flow">Обращение лиц</Link></Menu.Item>
                 <Menu.Item icon={<img src={FileNew} alt='Send' />}><Link to="/document-flow">Договор </Link></Menu.Item>
